@@ -9,7 +9,8 @@ class Point{
     private:
         // members --- --- ---
         std::vector<int> dimensions;
-
+    
+    public:
         // methods --- --- ---
         Point(int n); //default constructor
         Point(std::vector<int> v); // vector constructor

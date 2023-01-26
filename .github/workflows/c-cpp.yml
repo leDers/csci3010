@@ -16,5 +16,4 @@ jobs:
       uses: actions/checkout@v3
     - name: "move to directory"
       run: "cd lecture/Lecture\\ 3-4"
-    - name: "run make test and ./test"
       run: "make test && ./test" 

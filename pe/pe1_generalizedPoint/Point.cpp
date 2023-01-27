@@ -6,46 +6,48 @@
 
     Point::Point(int n){
         // int constructor
-        dimensions = std::vector<int> (0,n);
+        // a "default" constructor takes one integer, n, and constructs a point of n dimensions at the origin
+        dim_ = std::vector<int> (n,0);
     }
     Point::Point(std::vector<int> v){
         // vector constructo
-        dimensions = v;
+        // second constructor that takes either a vector or an array of integers as an argument. 
+        dim_ = v;
     }
 
-    int Point::getter(int i){
+    std::vector<int> Point::getter(){
         // get cooridnates at dimension n
-        return dimensions.at(i);
+        return dim_;
     }
-    int Point::setter(int n, int i){
+    int Point::setter(std::vector<int> v){
         // set cooridnates
-        dimensions.at(i) == n;
+        dim_ = v;
         return 0; 
     }
 
-    float Point::distance(Point a, Point b){
+    float Point::distance(Point b){
         // compute distance
         // pass by value
         // distance across all dimensional points
 
         // catch unequal dim
-        if (a.dimensions.size() != b.dimensions.size()){
+        if (this->dim_.size() != b.dim_.size()){
             std::cout << "Dimensions of points not equal" << std::endl; 
             return 0; // or error??
         }
         else{
             float sum = 0;
-            for (int i = 0; i<dimensions.size(); i++){
-                sum += pow(((float)a.dimensions.at(i) - (float)b.dimensions.at(i)), 2);
+            for (int i = 0; i< this->dim_.size(); i++){
+                sum += pow(((float)this->dim_.at(i) - (float)b.dim_.at(i)), 2);
             }
             return sqrt(sum);
         }
     }
-    void Point::translate(Point a, int n){
+    void Point::translate(int n){
         // translate point
         // pass by reference
         // call setter on passed point
-        for (int i=0; i < dimensions.size(); i++){
-            a.dimensions.at(i) += n;
+        for (int i=0; i < dim_.size(); i++){
+            this->dim_.at(i) += n;
         }
     }

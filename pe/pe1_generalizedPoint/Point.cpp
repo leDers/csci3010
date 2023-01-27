@@ -2,7 +2,6 @@
 // Leif Anders
 // HW1 - generalized point
 
-
 #include <iostream>
 #include <vector>
 #include <cmath>

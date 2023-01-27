@@ -1,3 +1,8 @@
+// CSCI 3010 Sp 23
+// Leif Anders
+// HW1 - generalized point
+
+
 #include <iostream>
 #include <vector>
 #include <cmath>

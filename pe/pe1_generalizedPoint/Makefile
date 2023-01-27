@@ -1,3 +1,7 @@
+# CSCI 3010 Sp 23
+# Leif Anders
+# HW1 - generalized point
+
 # Makefile 
 
 CXX = g++ #compiler

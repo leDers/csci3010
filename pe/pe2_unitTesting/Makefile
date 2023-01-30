@@ -14,5 +14,5 @@ test: Circle.o test.cpp
 main: Circle.o main.cpp
 	$(CXX) $(CXXFLAGS) main.cpp Circle.o -o main
 
-Circle.o: Circle.cpp
-	$(CXX) $(CXXFLAGS) -c Circle.cpp
+# Circle.o: Circle.cpp
+# 	$(CXX) $(CXXFLAGS) -c Circle.cpp

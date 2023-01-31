@@ -17,6 +17,6 @@ jobs:
     - name: "move to directory"
       run: "cd lecture/Lecture\\ 3-4" 
     - name: "make test"   
-      run: "make test"
+      run: "make clean && make test"
     - name: "run test" 
       run: "./test"

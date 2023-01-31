@@ -3,6 +3,8 @@
 CXX = g++  # the compiler
 CXXFLAGS = -std=c++2a -Wall  # flags for the compiler (use c++17 standards, turn on all optional warnings); add -ggdb if you want to use gdb to debug!
 
+.PHONY: main test
+
 # runs for "make all"
 all: test main 
 

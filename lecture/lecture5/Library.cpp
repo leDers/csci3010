@@ -28,6 +28,6 @@ void Library::Donate(Book b) {
   shelf_.push_back(b);
 }
 
-void Donate(Book b, int num_copies) {
-  
+void Library::Donate(Book b, int num_copies) {
+  shelf_.insert(shelf_.end(), num_copies, b);
 }

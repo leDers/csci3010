@@ -44,7 +44,7 @@ int main() {
     // Library. Did changing the Book information change it in your Library?
     //
     // Answer (and your hypothesis for why/why not):
-    std::cout << "\nChanging book1. \nPrinting book1..." << std::endl;
+    std::cout << "\nChanging book1... \nPrinting book1..." << std::endl;
     b1.title = "Life 3.0";
     b1.author = "Max Tegmark";
     std::cout << b1.title << " by " << b1.author << std::endl;
@@ -68,7 +68,7 @@ int main() {
         we cannot compare these two object with the compilers use of '=='
         however we can compare the members of the objects
     */
-   std::cout << "\ndirect compare..." << std::endl;
+   std::cout << "\ndirect compare of book obj..." << std::endl;
     if ((b3.title == b4.title) && (b3.author == b4.author)) {
         std::cout << "true" << std::endl;
     }
@@ -86,9 +86,9 @@ int main() {
     Book &b6 = b4;
     /* 
         we still cannot compare these two directly with the '==' operator
-        we have to dip into the object members
+        we have to dip into the object members to make use of '=='
     */
-    std::cout << "\nreference compare..." << std::endl;
+    std::cout << "\nreference compare of book obj..." << std::endl;
     if ((b5.title == b6.title) && (b5.author == b6.author)) {
         std::cout << "true" << std::endl;
     }
@@ -108,7 +108,7 @@ int main() {
         compares memory addresses fo pointers
         DOES NOT compare the actual values
     */
-    std::cout << "\npointer compare..." << std::endl;
+    std::cout << "\npointer compare of book obj..." << std::endl;
     if ((b7 == b8)) {
         std::cout << "true" << std::endl;
     }
@@ -119,7 +119,10 @@ int main() {
 
     // 10) Add a void Donate(Book b, int num_copies) method to your Library class.
     // your Library should add num_copies of Book b to its shelf.
-
+    std::cout << "\nDontaing 3 copies of book2 to lib1..." << std:: endl;
+    int n = 3;
+    lib1.Donate(b2, n);
+    lib1.PrintBooks();
 
     // 11) Finally, if you reach this far, work on finding a solution to making it so
     // that you would be able to do any of the comparisons from # 7, 8, and 9

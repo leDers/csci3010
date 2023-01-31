@@ -20,3 +20,14 @@ void Library::PrintBooks() {
     std::cout << b.title << " by " << b.author << std::endl;
   }
 }
+
+/*
+store the new book at the end of its shelf
+*/
+void Library::Donate(Book b) {
+  shelf_.push_back(b);
+}
+
+void Donate(Book b, int num_copies) {
+  
+}

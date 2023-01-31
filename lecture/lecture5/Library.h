@@ -13,6 +13,8 @@ public:
   Library();
 
   void PrintBooks();
+  void Donate(Book b);
+  void Donate(Book b, int num_copies);
 
 private:
   // arrays require size to be known at compile time.

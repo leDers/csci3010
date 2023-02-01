@@ -46,7 +46,7 @@ TEST_CASE ("Overlaps Checks","[overlaps]"){
     Circle c_0 = {pA,1};
     Circle c_1 = {pA,1};
     REQUIRE(c_0.Overlaps(c_1) == true); // full overlap
-    // !!! note: fails when more than one overlap point !!!
+    // !!! note: fails when circles are similar !!!
   }
   
   SECTION("overlap circle with point"){

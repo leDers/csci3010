@@ -32,12 +32,17 @@ Circle::Circle(Point p, int rad){
 int Circle::get_radius() const { return radius_; }
 
 //returns the center of the circle
+/*
+    there is no need to modify this function
+*/
 Point Circle::get_center() const { return center_; }
 
 // returns true iff this circle shares any points with the other one
 /*
-    the original overlap() failed to return true when 
-    there was more than one over lapping point
+    the original overlap() failed to return true when: 
+    - there was more than one over lapping point
+    - similar circles 
+    - smaller circle touches point of larger from the inside
 */
 bool Circle::Overlaps(Circle& other){
     double a = pow((this->center_.x - other.center_.x), 2);
@@ -52,17 +57,28 @@ bool Circle::Overlaps(Circle& other){
 }
 
 // returns the area of this circle
-// should this be flaot/ double?
+/*
+    in the original, this function failed to compute properly,
+    returned integers rather than doubles/ precise areas
+*/
 int Circle::CalculateArea(){
     return 2 * M_PI * pow(this->radius_, 2)
 ;}
 
 // increases the radius by one
+/*
+    nothing to fix here
+*/
 void Circle::Expand(){
     this->radius_ +=1;
 }
 
+
 // decreases the radius by one
+/*
+    original allowed radius to shink beyond 0
+    here, we disallow that
+*/
 void Circle::Shrink(){
     if (this->radius_ > 0) {
         this->radius_ -=1;

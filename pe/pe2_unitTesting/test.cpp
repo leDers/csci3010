@@ -10,3 +10,7 @@ TEST_CASE ( "Factorials are computed", "[factorial]") {
 }
 
 // write test cases for circle!!
+
+TEST_CASE ("Radius checks") {
+
+}

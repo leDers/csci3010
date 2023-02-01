@@ -1,3 +1,7 @@
+// CSCI 3010 SP 23
+// Leif Anders
+// PE2 - circles
+
 #define CATCH_CONFIG_MAIN  // This tells Catch to provide a main() - only do this in one cpp file
 #include "catch.hpp"
 
@@ -18,40 +22,64 @@ TEST_CASE ("Constructor Checks","[constructor]") {
   Point p = {0,0};
   Circle c = {p,0};
 
-  // check center getter
-  Point q = c.get_center();
-  REQUIRE(q.x == 0);
-  REQUIRE(q.y == 0);
-  REQUIRE(c.get_radius() == 0);
-
-  // origin point and -1 radius
-  // should fail
-  Circle d = {p,-1};
-  REQUIRE(d.get_radius() >= 0);
-  // !!! note: constructor allows negative radius !!! 
+  SECTION ("check center getter"){
+    Point q = c.get_center();
+    REQUIRE(q.x == 0);
+    REQUIRE(q.y == 0);
+    REQUIRE(c.get_radius() == 0);
+  }
+  
+  SECTION ("origin point and -1 radius") {
+    Circle d = {p,-1};
+    REQUIRE(d.get_radius() >= 0);
+    // !!! note: constructor allows negative radius !!! 
+  }
+  
 }
 
 TEST_CASE ("Overlaps Checks","[overlaps]"){
-  Point p0 = {-1,0};
-  Point p1 = {0,0};
-  Point p2 = {1,0};
+  Point pA = {-1,0};
+  Point pB = {0,0};
+  Point pC = {1,0};
 
-  Circle c0 = {p0,1};
-  Circle c1 = {p1,0};
-  Circle c2 = {p2,1};
-  Circle c4 = {p1,1};
+  SECTION( "self overlap" ){
+    Circle c_0 = {pA,1};
+    Circle c_1 = {pA,1};
+    REQUIRE(c_0.Overlaps(c_1) == true); // full overlap
+    // !!! note: fails when more than one overlap point !!!
+  }
+  
+  SECTION("overlap circle with point"){
+    Circle c_0 = {pA,1};
+    Circle c_1 = {pB,0};
+    REQUIRE(c_0.Overlaps(c_1) == true); // one point
+  }
+  
+  SECTION ("overlap circle with circle at circumference, outside") {
+    Circle c_0 = {pA,1};
+    Circle c_1 = {pC,1};
+    REQUIRE(c_0.Overlaps(c_1) == true); // one point
+  }
+  
+  SECTION ("overlap circle with circle at circumference, inside") {
+    Circle c_0 = {pC,1};
+    Circle c_1 = {pB,2};    
+    REQUIRE(c_0.Overlaps(c_1) == true); // one point
+    // !!! note: fails smaller circle inside larger touches at point !!!
+  }
 
+  SECTION ("overlap two adjacent circles") {
+    Circle c_0 = {pA,1};
+    Circle c_1 = {pB,1};
+    REQUIRE(c_0.Overlaps(c_1) == true); // two points
+    // !!! note: fails when more than one overlap point !!!
+  }
 
-  // self overlap
-  REQUIRE(c0.Overlaps(c0) == true);
-  // overlap circle with point
-  REQUIRE(c0.Overlaps(c1) == true);
-  // overlap circle with circle at circumference
-  REQUIRE(c0.Overlaps(c2) == true);
-  // overlap two adjacent circles
-  REQUIRE(c1.Overlaps(c4) == true);
-  // !!! note: fails when more than one overlap point
-
+  SECTION("Circle inside a circle, non touching") {
+    Circle c_0 = {pB,1};
+    Circle c_1 = {pB,2};
+    REQUIRE(c_0.Overlaps(c_1) == false);
+  }
 }
 
 TEST_CASE ("Area Checks","[area]") {
@@ -59,31 +87,35 @@ TEST_CASE ("Area Checks","[area]") {
   Circle c0 = {p, 0};
   Circle c1 = {p, 1};
 
-  // 0 radiues
-  REQUIRE(c0.CalculateArea() == 0);
+  SECTION("0 radius") {
+    REQUIRE(c0.CalculateArea() == 0);
+  }
 
-  // 1 radius
-  REQUIRE(c1.CalculateArea() == M_PI);
-  // !!! note: this returns an integer not, a double !!!
+  SECTION("1 radius"){
+    REQUIRE(c1.CalculateArea() == M_PI);
+    // !!! note: this returns an integer not, a double !!!
+  }
+  
 }
 
-TEST_CASE ("Shrink and Expand checks", "[shrink, expand]") {
+TEST_CASE ("Expand and Shrink checks", "[Expand, Shrink]") {
   // create point at (0,0)
   Point p = {0,0};
   // create circle from p0, radius 0
   Circle c = {p,0};
 
-  // check radius
-  REQUIRE( c.get_radius() == 0 );
+  SECTION("check radius"){
+    REQUIRE( c.get_radius() == 0 );
+  }
 
-  // expand, check radius
-  c.Expand();
-  REQUIRE( c.get_radius() == 1 );
-  // shrink back to 0
-  c.Shrink();
+  SECTION("expand from 0, check radius"){
+    c.Expand();
+    REQUIRE( c.get_radius() == 1 );    
+  }
 
-  // shrink; circles should not drop below 0 radius
-  c.Shrink();
-  REQUIRE( c.get_radius() == 0 );
-  // !!! note: provided shrink() breaks here !!!
+  SECTION("shrink from 0; circles should not drop below 0 radius"){
+    c.Shrink();
+    REQUIRE( c.get_radius() == 0 );
+    // !!! note: provided shrink() breaks here !!!
+  }
 }

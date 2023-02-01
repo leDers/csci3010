@@ -10,6 +10,11 @@
 #include "Circle.h"
 
 // constructor
+/*
+    The original constructor allowed circles to be made with 
+    neagative radius. We avoid this now by defaulting a neagative radius
+    to zero radius
+*/
 Circle::Circle(Point p, int rad){
     center_ = p;
 
@@ -21,18 +26,28 @@ Circle::Circle(Point p, int rad){
 }
 
 //returns the radius of the circle
+/*
+    there is no need to modify this function
+*/
 int Circle::get_radius() const { return radius_; }
 
 //returns the center of the circle
 Point Circle::get_center() const { return center_; }
 
 // returns true iff this circle shares any points with the other one
+/*
+    the original overlap() failed to return true when 
+    there was more than one over lapping point
+*/
 bool Circle::Overlaps(Circle& other){
     double a = pow((this->center_.x - other.center_.x), 2);
     double b = pow((this->center_.y - other.center_.y), 2);
     double d = sqrt(a+b);
 
-    if ( d > (this->radius_ + other.radius_) ) return false;
+    if ( d > (this->radius_ + other.radius_) 
+        || d < abs(this->radius_ - other.radius_)) {
+            return false;
+        }
     else return true;
 }
 

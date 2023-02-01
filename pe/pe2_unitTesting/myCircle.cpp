@@ -14,7 +14,8 @@ Circle::Circle(Point p, int rad){
     center_ = p;
 
     if (rad < 0) {
-        std::cout << "Circle cannot have negative radius. \nPlease try again." << std::endl;
+        std::cout << "Circle cannot have negative radius. \nSetting Radius to 0" << std::endl;
+        radius_ = 0;
     }
     radius_ = rad;
 }

@@ -5,6 +5,10 @@ struct Book {
   std::string title;
   std::string author;
 
+  // const inline bool operator==(const Book& b1, const Book& b2){
+  //   return ( (b1.title == b2.title) && (b2.author == b2.author));
+  // }
+
 };
 
 

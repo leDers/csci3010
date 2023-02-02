@@ -15,7 +15,7 @@ jobs:
     - name: "check out master"
       uses: actions/checkout@v3
     - name: "move to directory"
-      run: "cd lecture/Lecture\\ 3-4 && make test && ./test" 
+      run: "cd lecture/lecture3-4 && make test && ./test" 
     # - name: "make test"   
       # run: "make test"
     # - name: "run test" 

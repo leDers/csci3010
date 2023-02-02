@@ -28,6 +28,7 @@ class Deck {
 
     private:
         std::vector<Card> cards_;
+        int size_; 
 };
 
 #endif // _SUIT_H_

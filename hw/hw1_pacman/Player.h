@@ -61,7 +61,7 @@ public:
 	void incrementMoves();
 
 	// You may add other functions as needed/wanted
-	friend ostream & operator << (ostream &out, const Player &p);
+	friend std::ostream & operator << (std::ostream &out, const Player &p);
 
 private:
 	std::string name_;

@@ -77,7 +77,7 @@ void Player::incrementMoves(){
     this->moves_++;
 }
 
-ostream & operator << (ostream &out, const Player &p){
+std::ostream & operator << (std::ostream &out, const Player &p){
     out << "Name: " << p.get_name();
     out << "Points: " << p.get_points();
     return out;

@@ -34,7 +34,7 @@ Player::Player(const std::string name, const bool is_human){
 }
 
 /**
- * @brief changes the value fo player's points
+ * @brief Changes the value of player's points
  * 
  * @param x -- the value to change player points to
  */
@@ -43,7 +43,7 @@ void Player::ChangePoints(const int x){
 }
 
 /**
- * @brief set's the new position of the player object
+ * @brief Sets the new position of the player object
  * 
  * @param pos -- the position to change the player to
  */
@@ -52,7 +52,7 @@ void Player::SetPosition(Position pos){
 }
 
 /**
- * @brief setHasTrasure_ to true
+ * @brief Sets player object's setHasTrasure_ to true
  * 
  */
 void Player::setHasTreasure(){
@@ -60,7 +60,7 @@ void Player::setHasTreasure(){
 }
 
 /**
- * @brief checks to see if nan ENEMY player is dead
+ * @brief Checks to see if nan ENEMY player is dead
  * 
  * @param isdead -- the value to set isDead_ to
  */
@@ -69,7 +69,7 @@ void Player::setIsDead(bool isdead){
 }
 
 /**
- * @brief update/ set the lives of player
+ * @brief Update/ set the lives of player
  * 
  */
 void Player::setLives(){
@@ -77,7 +77,7 @@ void Player::setLives(){
 }
 
 /**
- * @brief translates nearby valid positions to directions (Up, down, left, right)
+ * @brief Translates nearby valid positions to directions (Up, down, left, right)
  * 
  * @param other -- the other player 
  * @return std::string -- nearby locations
@@ -87,7 +87,7 @@ std::string Player::ToRelativePosition(Position other){
 }
 
 /**
- * @brief uses the overloaded '<<' operator to print players name and points
+ * @brief Uses the overloaded '<<' operator to print player objects name and points
  * 
  * @return std::string -- a string reprensentation of player's name and points
  */
@@ -96,7 +96,7 @@ std::string Player::Stringify(){
 }
 
 /**
- * @brief gets the number of moves made by this player object
+ * @brief Gets the number of moves made by this player object
  * 
  * @return int -- the int value for number of moves made by a player
  */
@@ -105,7 +105,7 @@ int Player::getMoves(){
 }
 
 /**
- * @brief increment this player objects moves_ by 1
+ * @brief Increment this player objects moves_ by 1
  * 
  */
 void Player::incrementMoves(){

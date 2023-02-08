@@ -2,6 +2,9 @@
 # Leif Anders
 # HW1 - Pacman
 
+# To Run Unit Tests:
+# make && ./test
+
 CXX = g++
 CXXFLAGS = -std=c++2a -Wall
 

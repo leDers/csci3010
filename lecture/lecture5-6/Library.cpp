@@ -16,9 +16,14 @@ Library::Library() {
   Prints out each book in the library, one per line to cout
 */
 void Library::PrintBooks() {
-  for (Book b : shelf_) {
-    std::cout << b.title << " by " << b.author << std::endl;
+  // for (Book b : shelf_) {
+  //   std::cout << b.title << " by " << b.author << std::endl;
+  // }
+
+   for (Book b : shelf_) {
+    std::cout << b;
   }
+
 }
 
 /*

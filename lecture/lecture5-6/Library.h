@@ -5,9 +5,15 @@ struct Book {
   std::string title;
   std::string author;
 
-  // const inline bool operator==(const Book& b1, const Book& b2){
-  //   return ( (b1.title == b2.title) && (b2.author == b2.author));
-  // }
+  friend const inline bool operator==(const Book& b1, const Book& b2){
+    return ( (b1.title == b2.title) && (b2.author == b2.author));
+  }
+
+  friend std::ostream& operator<<(std::ostream& os, const Book& b)
+  {
+    os << b.title << " by " << b.author << std::endl;
+    return os;
+  }
 
 };
 
@@ -19,6 +25,14 @@ public:
   void PrintBooks();
   void Donate(Book b);
   void Donate(Book b, int num_copies);
+
+  friend std::ostream& operator<<(std::ostream& os, const Library& l){
+    for (int i = 0; i <l.shelf_.size(); i++){
+      os << l.shelf_[i];
+    }
+    return os;
+  }
+  
 
 private:
   // arrays require size to be known at compile time.

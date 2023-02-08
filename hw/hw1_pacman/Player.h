@@ -61,7 +61,12 @@ public:
 	void incrementMoves();
 
 	// You may add other functions as needed/wanted
-	friend std::ostream & operator << (std::ostream &out, const Player &p);
+	// overload the pritnt operator
+	friend std::ostream & operator << (std::ostream &out, const Player &p){
+		out << "Name: " << p.get_name();
+		out << "Points: " << p.get_points();
+		return out;
+	}
 
 private:
 	std::string name_;

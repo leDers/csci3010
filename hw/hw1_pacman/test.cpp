@@ -19,6 +19,24 @@
 
 // SquareType  --- --- --- --- --- --- --- ---
 
+TEST_CASE ("Square Type Tests"){
+    
+    int num_of_sqType = 9;
+    for (int i = 0; i < num_of_sqType; i++ ){
+        std::cout << SquareTypeStringify( static_cast<SquareType>(i) ) << std::endl;
+    }
+    
+}
+
 // Board --- --- --- --- --- --- --- ---
+
+TEST_CASE ("Board Tests"){
+
+    SECTION ("read from file check"){
+        Board nuBoard = Board();
+        std::cout << "board made!" << std::endl;
+        std::cout << nuBoard << std::endl;
+    }
+}
 
 // Game --- --- --- --- --- --- --- ---

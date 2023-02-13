@@ -2,6 +2,7 @@
 #define _GAME_H_
 
 #include <vector>
+#include <fstream>
 #include "Player.h"
 
 // you may change this enum as you need
@@ -9,6 +10,7 @@ enum class SquareType { Wall, Dots, Pacman, Treasure, Enemies, Empty, PowerfulPa
 
 // TODO: implement
 std::string SquareTypeStringify(SquareType sq);
+SquareType intToSquare(int x);
 
 class Board {
 public:
@@ -39,10 +41,30 @@ public:
 
 	// TODO:
 	// You probably want to implement this
-	friend std::ostream& operator<<(std::ostream& os, const Board &b);
+	friend std::ostream& operator<<(std::ostream& os, const Board &b){
+		std::cout << "printing board..." << std::endl;
+		Position p = {0,0};
+		for (int i = 0; i < 10; i++){
+			for (int j = 0; j < 10; j++){
+				
+				p = {i, j};
+				os << SquareTypeStringify( b.get_square_value(p) ) << " ";
+			}
+			os << std::endl;
+		}
+		
+		return os;
+	}
+
+	friend std::istream& operator>> (std::istream& is, SquareType& sq){
+
+	}
+
+
 
 private:
 	SquareType arr_[10][10];
+	int arr2_ [10][10];
 	int rows_; // might be convenient but not necessary
 	int cols_;
 	// you may add more fields, as needed

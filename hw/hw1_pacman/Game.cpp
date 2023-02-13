@@ -10,6 +10,7 @@
  * 
  */
 
+
 #include "Game.h"
 
 // SquareType  --- --- --- --- --- --- --- ---
@@ -20,7 +21,40 @@
  * @param sq -- the enum class of Square type to be stringified
  * @return std::string -- the string equivalent of the square type
  */
-std::string SquareTypeStringify(SquareType sq);
+std::string SquareTypeStringify(SquareType sq){
+    switch (sq){
+        case SquareType::Wall: return "\U0001F7E6"; break;            // blue square
+        case SquareType::Dots: return "\U0001F7E1"; break;            // yellow circle
+        case SquareType::Pacman: return "\U0001F604"; break;          // smiley face 
+        case SquareType::Treasure: return "\U0001F344"; break;        // mushroom
+        case SquareType::Enemies: return "\U0001F47B"; break;         // ghost
+        case SquareType::Empty: return "\U000026AA"; break;             // white circle small
+        case SquareType::PowerfulPacman: return "\U0001F608"; break;  // steamy nose face 
+        case SquareType::Trap: return "\U0001F525"; break;            // fire
+        case SquareType::EnemySpecialTreasure: return "\U0001F480"; break; // skull
+        default: return "bad tile";      
+    } 
+}
+
+/**
+ * @brief converts int array into squaretype array
+ * 
+ */
+SquareType intToSquare(int x){
+    
+    switch(x){
+        case 0: return SquareType::Wall;
+        case 1: return SquareType::Dots;
+        case 2: return SquareType::Pacman;
+        case 3: return SquareType::Treasure;
+        case 4: return SquareType::Enemies;
+        case 5: return SquareType::Empty;
+        case 6: return SquareType::PowerfulPacman;
+        case 7: return SquareType::Trap;
+        case 8: return SquareType::EnemySpecialTreasure;
+    }
+
+}
 
 // Board --- --- --- --- --- --- --- ---
 
@@ -29,7 +63,37 @@ std::string SquareTypeStringify(SquareType sq);
  * 
  */
 Board::Board(){
+    std::ifstream in_file("board1.txt");
 
+    // create int board
+    if (in_file){
+        for (int i = 0; i < 10; i++){
+            for (int j = 0; j < 10; j++){
+
+                in_file >> this->arr2_[i][j];
+            }
+        }
+    }
+    else if (!in_file){
+        std::cout << "invalid board.txt" << std::endl;
+    }
+
+    // convert int board into squareType board
+    for (int i = 0; i < 10; i++){
+        for (int j = 0; j < 10; j++){
+            this->arr_[i][j] = intToSquare(this->arr2_[i][j]);
+        }
+    }
+}
+
+/**
+ * @brief Get the square value object
+ * 
+ * @param pos -- the position on board to retreive value
+ * @return SquareType -- the squretpe that is returned
+ */
+SquareType Board::get_square_value(Position pos) const{
+    return this->arr_[pos.row][pos.col];
 }
 
 /**
@@ -39,7 +103,7 @@ Board::Board(){
  * @param value -- the valuse to change a square to
  */
 void Board::SetSquareValue(Position pos, SquareType value){
-
+    this->arr_[pos.row][pos.col] = value;
 }
 
 /**

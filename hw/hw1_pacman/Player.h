@@ -9,8 +9,13 @@ struct Position {
 	int col;
 
 	// already implemented for you!
-	bool operator==(const Position &other) {
-		return row == other.row && col == other.col;
+	friend bool operator==(const Position & lhs, const Position &other) {
+		return lhs.row == other.row && lhs.col == other.col;
+	}
+
+	friend std::ostream & operator << (std::ostream &out, const Position &p){
+		out << "Position: [" << p.row << ", " << p.col << "]";
+		return out;
 	}
 };
 
@@ -61,12 +66,13 @@ public:
 	void incrementMoves();
 
 	// You may add other functions as needed/wanted
+	
 	// overload the pritnt operator
-	friend std::ostream & operator << (std::ostream &out, const Player &p){
-		out << "Name: " << p.get_name();
-		out << "Points: " << p.get_points();
-		return out;
-	}
+	// friend std::ostream & operator << (std::ostream &out, const Player &p){
+	// 	out << "Name: " << p.get_name();
+	// 	out << "Points: " << p.get_points();
+	// 	return out;
+	// }
 
 private:
 	std::string name_;

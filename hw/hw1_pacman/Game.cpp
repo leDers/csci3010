@@ -41,19 +41,21 @@ std::string SquareTypeStringify(SquareType sq){
  * 
  */
 SquareType intToSquare(int x){
-    
+    SquareType sq;
     switch(x){
-        case 0: return SquareType::Wall;
-        case 1: return SquareType::Dots;
-        case 2: return SquareType::Pacman;
-        case 3: return SquareType::Treasure;
-        case 4: return SquareType::Enemies;
-        case 5: return SquareType::Empty;
-        case 6: return SquareType::PowerfulPacman;
-        case 7: return SquareType::Trap;
-        case 8: return SquareType::EnemySpecialTreasure;
+        case 0: sq = SquareType::Wall;  break;
+        case 1: sq = SquareType::Dots;  break;
+        case 2: sq = SquareType::Pacman;    break;
+        case 3: sq = SquareType::Treasure;  break;
+        case 4: sq = SquareType::Enemies;   break;
+        case 5: sq = SquareType::Empty; break;
+        case 6: sq = SquareType::PowerfulPacman;    break;
+        case 7: sq = SquareType::Trap;  break;
+        case 8: sq = SquareType::EnemySpecialTreasure;  break;
+        default: sq = SquareType::Empty; break;     // incase weird stuf just make it empty
     }
 
+    return sq;
 }
 
 // Board --- --- --- --- --- --- --- ---
@@ -81,7 +83,15 @@ Board::Board(){
     // convert int board into squareType board
     for (int i = 0; i < 10; i++){
         for (int j = 0; j < 10; j++){
-            this->arr_[i][j] = intToSquare(this->arr2_[i][j]);
+            
+            // fill in array
+            int r = rand()%9;   // 10% chance for treasure on non-wall
+            if ((this->arr2_[i][j] !=0 ) && (r==0)) {   
+                this->arr_[i][j] = intToSquare(3); 
+            }
+            else { 
+                this->arr_[i][j] = intToSquare(this->arr2_[i][j]);
+            }
         }
     }
 }
@@ -113,7 +123,50 @@ void Board::SetSquareValue(Position pos, SquareType value){
  * @return std::vector<Position> -- the possible positions a player/enemy could move to
  */
 std::vector<Position> Board::GetMoves(Player *p){
+    std::vector<Position> out;
+    Position k = p->get_position(); 
+    int i = k.row;
+    int j = k.col;
 
+    SquareType x;
+
+    // up
+    Position z = {i-1, j};
+    x = get_square_value(z);
+    if ((x == SquareType::Dots)  || 
+        (x == SquareType::Empty) ||
+        (x == SquareType::Treasure) ) {
+            out.push_back(z);
+    }
+
+    // right
+    z = {i, j+1};
+    x = get_square_value(z);
+    if ((x == SquareType::Dots)  || 
+        (x == SquareType::Empty) ||
+        (x == SquareType::Treasure) ) {
+            out.push_back(z);
+    }
+
+    // down
+    z = {i+1, j};
+    x = get_square_value(z);
+    if ((x == SquareType::Dots)  || 
+        (x == SquareType::Empty) ||
+        (x == SquareType::Treasure) ) {
+            out.push_back(z);
+    }
+
+    // left
+    z = {i, j-1};
+    x = get_square_value(z);
+    if ((x == SquareType::Dots)  || 
+        (x == SquareType::Empty) ||
+        (x == SquareType::Treasure) ) {
+            out.push_back(z);
+    }
+    
+    return out;
 }
 
 /**
@@ -126,6 +179,53 @@ std::vector<Position> Board::GetMoves(Player *p){
  * @return false -- if move was failed
  */
 bool Board::MovePlayer(Player *p, Position pos, std::vector<Player*> enemylist){
+    
+    int score_pellet = 1;       // pellet score value
+    int score_treasure = 100;   // treasure point value
+    int nearby_enemy_index=0;   // determine neaby enemies from list
+    for (unsigned long int i=0; i<enemylist.size(); i++){
+        if (pos == enemylist[i]->get_position()){
+            nearby_enemy_index = i;
+        }
+    }
+    
+    // Enemy
+    if (this->get_square_value(pos) == SquareType::Enemies){    // check for enemy
+       if (p->hasTreasure()) {          // if player has trasure and enmy @ pos, enemy dies
+            enemylist[nearby_enemy_index]->setIsDead(true);     // kill enemy
+            p->setHasTreasure();                                // lose treasure
+       }
+       else{
+            p->setLives();              // player loses life
+            if (p->getLives() == 0){    // if lives are gone, set to dead
+                p->setIsDead(true);     // set dead value 
+            }
+        }
+    }
+    // Trap TODO:
+
+    // Treasure
+    if (this->get_square_value(pos) == SquareType::Treasure){   // check for treasure
+        p->ChangePoints(score_treasure);                        // modify score
+        if (!p->hasTreasure()) { p->setHasTreasure(); }         // set treasure bool
+    }
+
+    // Pellet
+    if (this->get_square_value(pos) == SquareType::Dots){       // check for pellets
+        p->ChangePoints(score_pellet);                          // modify score
+    }
+    
+    // anything else
+    this->SetSquareValue(p->get_position(), SquareType::Empty); // set players current tile to empty
+    p->SetPosition(pos);                                        // set new pos to player
+    
+    if (p->hasTreasure()) { this->SetSquareValue(pos, SquareType::PowerfulPacman); }  // set tile @ p.pos_
+    else { this->SetSquareValue(pos, SquareType::Pacman); }
+    
+    // increment moves
+    p->incrementMoves();
+
+    return true;
 
 }
 
@@ -139,6 +239,12 @@ bool Board::MovePlayer(Player *p, Position pos, std::vector<Player*> enemylist){
  */
 bool Board::MoveEnemy(Player *p, Position pos){
     
+    this->SetSquareValue(p->get_position(), SquareType::Empty); // set players current spot to empty
+    p->SetPosition(pos);
+    this->SetSquareValue(pos, SquareType::Enemies);
+
+    return true;
+
 }
 
 // Game --- --- --- --- --- --- --- ---
@@ -148,7 +254,11 @@ bool Board::MoveEnemy(Player *p, Position pos){
  * 
  */
 Game::Game(){
-
+    this->board_ = new Board();
+    std::vector<Player *> players_;
+    this->turn_count_ = 0;
+    this->dots_count_ = 0;
+    this->GameOver = false;
 }
 
 /**
@@ -159,7 +269,13 @@ Game::Game(){
  * @param enemies   -- number of enemies 
  */
 void Game::NewGame(Player *human,std::vector<Player*> enemylist, const int enemies){
-
+    this->players_.push_back(human);    // add human to g->players_
+    
+    for (int i = 0; i<enemies; i ++){   // add enemies to g->players_
+        Player* t = new Player("enemy_"+std::to_string(i), false);                  // init enemys
+        enemylist.push_back(t);                                                     // push enemy to player list
+        this->board_->SetSquareValue( (t->get_position()), SquareType::Enemies);    // set board value to enemy
+    }
 }
 
 /**
@@ -169,7 +285,42 @@ void Game::NewGame(Player *human,std::vector<Player*> enemylist, const int enemi
  * @param enemylist -- vector list of enemy players
  */
 void Game::TakeTurn(Player *p,std::vector<Player*> enemylist){
+    //TODO:
+    // ask for moves
+    char input = ' ';
+    do{
+        std::cout << "Enter your move:" << std::endl;
+        std::cin >> input;
+        if ( toupper(input) == 'W' ||
+             toupper(input) == 'D' ||
+             toupper(input) == 'S' ||
+             toupper(input) == 'A'){
+        }
+        else{
+            std::cout << "Select a valid move" << std::endl;
+        }
+    } while (   toupper(input) != 'W' &&
+                toupper(input) != 'D' &&
+                toupper(input) != 'S' &&
+                toupper(input) != 'A'
+    );
 
+    // make move
+    int i = p->get_position().row;
+    int j = p->get_position().col;
+    switch (input)  {
+        case 'W': i-=1; break;
+        case 'D': j-=1; break;
+        case 'S': i+=1; break;
+        case 'A': j+=1; break;
+    }
+
+    Position tp = {i,j};
+    
+    // get and set board
+    Board* tb = this->getBoard();
+    tb->MovePlayer(p,tp,enemylist);
+    this->setBoard(tb);
 }
 
 /**
@@ -189,7 +340,7 @@ void Game::TakeTurnEnemy(Player *p){
  * @return false -- if human player isDead == false
  */
 bool Game::IsGameOver(Player *p){
-
+    return p->isDead();
 }
 
 /**
@@ -199,7 +350,7 @@ bool Game::IsGameOver(Player *p){
  * @return false -- if any number of pellets remain
  */
 bool Game::CheckifdotsOver(){
-
+    return (this->dots_count_ == 0);
 }
 
 /**
@@ -209,5 +360,87 @@ bool Game::CheckifdotsOver(){
  * @return std::string -- sting info about the game's conditions after it is over
  */
 std::string Game::GenerateReport(Player *p){
+    //TODO: ALL
+    return "Implement repoert generation";
+}
 
+/**
+ * @brief Has the player create their personalized player obj
+ * 
+ * @return Player -- user generated player pointer
+ */
+Player* Game::userCreatePlayer(){
+    std::string name;
+    std::cout<< "Please Enter Your Name" << std::endl;
+    std::cin >> name;
+    Player *p = new Player(name, true); // T*t = &T();
+    return p;
+}
+
+/**
+ * @brief get number of enemies
+ * 
+ * @return int -- user generated enemy count
+ */
+int Game::numberOfEnemies(){
+    int num;
+    std::string num_input;
+    char selection = ' ';
+    bool is_num = true;
+
+
+    do {
+        std::cout<< "Number of Enemies (2 <= x <= 10):" << std::endl;
+        std::cin >> num_input;
+
+        for (long unsigned int i = 0; i < num_input.length(); i++){
+            if (!isdigit(num_input[i])) { is_num = false; }
+            else {
+                is_num = true;
+                num = stoi(num_input);    
+            }
+        }
+
+        if ((num >= 2) && (num <= 10) && (is_num)) {
+            std::cout << "You want to play against \""<< num << "\" enemies?" << std::endl;
+            std::cout<< "Yes        Y" << std::endl;
+            std::cout<< "No         N" << std::endl;   
+            std::cin >> selection;
+        }
+        else{
+            std::cout << "Please enter a valid number" << std::endl;
+        }
+
+    }while( toupper(selection) != 'Y');
+
+    return num;
+}
+
+/**
+ * @brief 
+ * 
+ * @return Board* 
+ */
+Board* Game::getBoard(){
+    return this->board_;
+}
+
+void Game::setBoard(Board* b){
+    this->board_ = b;
+}
+
+/**
+ * @brief this function helps print out all the players possible moves
+ * 
+ * @param p -- the player whose moves we are printing
+ * @return std::string -- the ourput string
+ */
+std::string Game::printMoves(Player *p){
+    std::vector<Position> v = this->getBoard()->GetMoves(p);
+    std::string out = "";
+    for (long unsigned int i = 0; i < v.size(); i++){
+        out += "\n" + p->ToRelativePosition(v[i]);
+    }
+
+    return out;
 }

@@ -22,14 +22,21 @@
  * @param is_human -- player status; true if human, false if computer
  */
 Player::Player(const std::string name, const bool is_human){
-    this->name_ = name;
-    this->is_human_ = is_human;
+ 
+    if (is_human){
+        this->name_ = name;
+        Position p = {0,0};
+        this->pos_ = p;
+    }else{
+        Position e = { (rand()%8)+1, (rand()%8)+1 };
+        this->pos_ = e;
+    }
 
-    // this->pos_ = ??
+    this->is_human_ = is_human;
     this->points_ = 0;
     this->has_Treasure_ = false;
     this->isDead_ = false;
-    // this-> lives -- in Player.h
+    this->lives_ = 3;
     this->moves_ = 0;
 }
 
@@ -39,7 +46,7 @@ Player::Player(const std::string name, const bool is_human){
  * @param x -- the value to change player points to
  */
 void Player::ChangePoints(const int x){
-    this->points_ = x;
+    this->points_ += x;
 }
 
 /**
@@ -56,7 +63,7 @@ void Player::SetPosition(Position pos){
  * 
  */
 void Player::setHasTreasure(){
-    this->has_Treasure_ = true;
+    this->has_Treasure_ = (!this->hasTreasure());
 }
 
 /**
@@ -73,17 +80,21 @@ void Player::setIsDead(bool isdead){
  * 
  */
 void Player::setLives(){
-    this->lives_ = 3;
+    this->lives_ -= 1;
 }
 
 /**
  * @brief Translates nearby valid positions to directions (Up, down, left, right)
  * 
- * @param other -- the other player 
+ * @param other -- the other position 
  * @return std::string -- nearby locations
  */
 std::string Player::ToRelativePosition(Position other){
-
+    if (this->pos_.row-1 == other.row && this->pos_.col == other.col) { return "UP      W";}
+    if (this->pos_.row+1 == other.row && this->pos_.col == other.col) { return "DOWN    S";}
+    if (this->pos_.row == other.row && this->pos_.col-1 == other.col) { return "LEFT    A";}
+    if (this->pos_.row == other.row && this->pos_.col+1 == other.col) { return "RIGHT   D";}
+    else return "No relative Position";
 }
 
 /**
@@ -92,7 +103,7 @@ std::string Player::ToRelativePosition(Position other){
  * @return std::string -- a string reprensentation of player's name and points
  */
 std::string Player::Stringify(){
-    std::cout << this << std::endl; 
+    return ("Name: " + this->get_name() + "\t\tPoints: " + std::to_string(this->get_points())); 
 }
 
 /**
@@ -111,3 +122,4 @@ int Player::getMoves(){
 void Player::incrementMoves(){
     this->moves_++;
 }
+

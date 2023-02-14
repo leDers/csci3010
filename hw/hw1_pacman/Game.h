@@ -5,12 +5,17 @@
 #include <fstream>
 #include "Player.h"
 
+// SquareType  --- --- --- --- --- --- --- ---
+
 // you may change this enum as you need
 enum class SquareType { Wall, Dots, Pacman, Treasure, Enemies, Empty, PowerfulPacman, Trap, EnemySpecialTreasure };
 
 // TODO: implement
 std::string SquareTypeStringify(SquareType sq);
+
 SquareType intToSquare(int x);
+
+// Board --- --- --- --- --- --- --- ---
 
 class Board {
 public:
@@ -42,8 +47,8 @@ public:
 	// TODO:
 	// You probably want to implement this
 	friend std::ostream& operator<<(std::ostream& os, const Board &b){
-		std::cout << "printing board..." << std::endl;
 		Position p = {0,0};
+		//iterate, get square value at p, append all to os
 		for (int i = 0; i < 10; i++){
 			for (int j = 0; j < 10; j++){
 				
@@ -56,9 +61,9 @@ public:
 		return os;
 	}
 
-	friend std::istream& operator>> (std::istream& is, SquareType& sq){
-
-	}
+	// friend std::istream& operator>> (std::istream& is, SquareType& sq){
+	//
+	// }
 
 
 
@@ -69,6 +74,8 @@ private:
 	int cols_;
 	// you may add more fields, as needed
 };  // class Board
+
+// Game --- --- --- --- --- --- --- ---
 
 class Game {
 public:
@@ -94,8 +101,26 @@ public:
 	// string info about the game's conditions after it is over
 	std::string GenerateReport(Player *p);
 
+	// have user create their player
+	Player* userCreatePlayer();
+
+	// get user to chose number of enemies
+	int numberOfEnemies();
+
+	Board* getBoard();
+	void setBoard(Board* b);
+	
+
+	std::string printMoves(Player *printMoves);
+
 	// TODO:
-	friend std::ostream& operator<<(std::ostream& os, const Game &m);
+	// friend std::ostream& operator<<(std::ostream& os, const Game &g){
+		
+	// 	// board
+	// 	// points
+	// 	// lives
+		
+	// }
 
 private:
 	Board *board_;

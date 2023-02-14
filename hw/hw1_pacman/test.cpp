@@ -16,26 +16,67 @@
 #include "Game.h"
 
 // Player --- --- --- --- --- --- --- ---
+TEST_CASE ("Player"){
+
+    SECTION("INIT TEST"){
+        Position p = {0,0};
+        
+        std::string name = "Leif";
+        bool is_human = true;
+        Player nu = Player(name, is_human);
+
+        REQUIRE(nu.get_name() == "Leif");
+        REQUIRE(nu.get_points() == 0 );
+        REQUIRE(nu.get_position() == p);
+        REQUIRE(nu.is_human() == true);
+        REQUIRE(nu.isDead() == false );
+        REQUIRE(nu.getLives() == 3);
+        REQUIRE(nu.getMoves() == 0);
+    }
+
+}
 
 // SquareType  --- --- --- --- --- --- --- ---
 
 TEST_CASE ("Square Type Tests"){
     
     int num_of_sqType = 9;
+    std::cout << "Emoji Test:\n";
     for (int i = 0; i < num_of_sqType; i++ ){
-        std::cout << SquareTypeStringify( static_cast<SquareType>(i) ) << std::endl;
-    }
+        std::cout << SquareTypeStringify( static_cast<SquareType>(i) ) << " ";
+    } std::cout << "\n";
     
 }
 
 // Board --- --- --- --- --- --- --- ---
 
 TEST_CASE ("Board Tests"){
+    Board b = Board();
+    Player *p = new Player("Leif", true);
+    std::vector<Player*> e;
 
     SECTION ("read from file check"){
-        Board nuBoard = Board();
-        std::cout << "board made!" << std::endl;
-        std::cout << nuBoard << std::endl;
+        std::cout << "Print Board Test:\n" << b << std::endl;
+    }
+
+    SECTION("test moves"){
+        std::vector<Position> v = b.GetMoves(p);
+
+        std::cout << "Print Relative Direction Test:\n";
+        for (long unsigned int i = 0; i < v.size(); i++){
+            std::cout << p->ToRelativePosition(v[i]) << " ";
+        } std::cout << "\n";
+    }
+
+    SECTION("Test Moving"){
+        Position p1 = {0,1};
+        Position p2 = {1,1};
+
+        b.MovePlayer(p, p1, e);
+        std::cout << "First Move:\n" << b;
+
+        b.MovePlayer(p, p2, e);
+        std::cout << "Second Move:\n"<< b;
     }
 }
 

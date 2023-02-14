@@ -24,7 +24,9 @@ int main(){
     do{
         // main menu
         std::cout << "##############################" << std::endl;        
-        std::cout << "           Welcome!          " << std::endl;
+        std::cout << "#######    Welcome     #######" << std::endl;
+        std::cout << "#######       to       #######" << std::endl;
+        std::cout << "#######     PukMan     #######" << std::endl;
         std::cout << "##############################" << std::endl;        
         std::cout << "Play      P" << std::endl;
         std::cout << "Quit      Q" << std::endl;
@@ -41,11 +43,11 @@ int main(){
                 std::cout << "##############################" << std::endl;
                 std::cout << "#######   GAME BOARD   #######" << std::endl;
                 std::cout << "##############################" << std::endl;
-                std::cout << *g.getBoard() << std::endl;
+                std::cout << *g.getBoard();
                 std::cout << "##############################" << std::endl;
                 std::cout << p->Stringify() << std::endl;
                 std::cout << "##############################" << std::endl;
-                std::cout << "MOVES:             (enter key)" << g.printMoves(p)<< std::endl;
+                std::cout << "MOVES:                 ( key )" << g.printMoves(p)<< std::endl;
                 std::cout << "##############################" << std::endl;
 
                 // player take turn
@@ -54,6 +56,9 @@ int main(){
                 g.TakeTurnEnemy(p);
             }
 
+            std::cout << "##############################" << std::endl;
+            std::cout << "#######   GAME  OVER   #######" << std::endl;
+            std::cout << "##############################" << std::endl << std::endl;            
         }
 
     }while ( toupper(selection) != 'Q' );

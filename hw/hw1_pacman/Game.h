@@ -108,7 +108,10 @@ public:
 	int numberOfEnemies();
 
 	Board* getBoard();
-	void setBoard(Board* b);
+	void setBoard(Player *p, Position pos, std::vector<Player*> enemylist);
+
+	Player* getPlayer(int i);
+	void addToEnemyList(Player* enemy);
 	
 
 	std::string printMoves(Player *printMoves);

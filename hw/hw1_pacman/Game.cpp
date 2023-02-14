@@ -10,7 +10,6 @@
  * 
  */
 
-
 #include "Game.h"
 
 // SquareType  --- --- --- --- --- --- --- ---
@@ -66,7 +65,7 @@ SquareType intToSquare(int x){
  */
 Board::Board(){
     std::ifstream in_file("board1.txt");
-
+    srand(time(0));
     // create int board
     if (in_file){
         for (int i = 0; i < 10; i++){
@@ -86,7 +85,7 @@ Board::Board(){
             
             // fill in array
             int r = rand()%9;   // 10% chance for treasure on non-wall
-            if ((this->arr2_[i][j] !=0 ) && (r==0)) {   
+            if ((this->arr2_[i][j] ==1)  && (r==0)) {   
                 this->arr_[i][j] = intToSquare(3); 
             }
             else { 
@@ -188,7 +187,12 @@ bool Board::MovePlayer(Player *p, Position pos, std::vector<Player*> enemylist){
             nearby_enemy_index = i;
         }
     }
-    
+
+    if(this->get_square_value(pos) == SquareType::Wall){
+        p->incrementMoves();
+        return false;
+    }
+
     // Enemy
     if (this->get_square_value(pos) == SquareType::Enemies){    // check for enemy
        if (p->hasTreasure()) {          // if player has trasure and enmy @ pos, enemy dies
@@ -198,7 +202,7 @@ bool Board::MovePlayer(Player *p, Position pos, std::vector<Player*> enemylist){
        else{
             p->setLives();              // player loses life
             if (p->getLives() == 0){    // if lives are gone, set to dead
-                p->setIsDead(true);     // set dead value 
+                p->setIsDead(true);     // set dead value
             }
         }
     }
@@ -269,13 +273,21 @@ Game::Game(){
  * @param enemies   -- number of enemies 
  */
 void Game::NewGame(Player *human,std::vector<Player*> enemylist, const int enemies){
+    
     this->players_.push_back(human);    // add human to g->players_
     
+    Player* p = NULL;
     for (int i = 0; i<enemies; i ++){   // add enemies to g->players_
-        Player* t = new Player("enemy_"+std::to_string(i), false);                  // init enemys
-        enemylist.push_back(t);                                                     // push enemy to player list
-        this->board_->SetSquareValue( (t->get_position()), SquareType::Enemies);    // set board value to enemy
+        const std::string name = "enemy_"+std::to_string(i);
+        std::cout << name << std::endl;
+        p = new Player(name, false);                  // init enemys
+    
+        std::cout << p->Stringify() << std::endl;   // delete
+        
+        this->board_->SetSquareValue( (p->get_position()), SquareType::Enemies);    // set board value to enemy
     }
+
+   
 }
 
 /**
@@ -288,13 +300,38 @@ void Game::TakeTurn(Player *p,std::vector<Player*> enemylist){
     //TODO:
     // ask for moves
     char input = ' ';
+    int i = p->get_position().row;
+    int j = p->get_position().col;
+    Position tp;
     do{
         std::cout << "Enter your move:" << std::endl;
         std::cin >> input;
-        if ( toupper(input) == 'W' ||
-             toupper(input) == 'D' ||
-             toupper(input) == 'S' ||
-             toupper(input) == 'A'){
+        input = toupper(input);
+        if ( input == 'W' ||
+             input == 'D' ||
+             input == 'S' ||
+             input == 'A') {
+
+            // make move
+            if (input == 'W') {
+                i =i -1;
+                if (i<0){i=0;}
+            }
+            if (input == 'D') {
+                j =j +1;
+                if (j>9){j=9;}
+            }
+            if (input == 'S') {
+                i =i +1;
+                if (i>9){i=9;}
+            }
+            if (input == 'A') {
+                j =j -1;
+                if (j<0){j=0;}
+            }
+
+            tp = {i,j};
+            this->setBoard(p,tp,enemylist);
         }
         else{
             std::cout << "Select a valid move" << std::endl;
@@ -303,24 +340,7 @@ void Game::TakeTurn(Player *p,std::vector<Player*> enemylist){
                 toupper(input) != 'D' &&
                 toupper(input) != 'S' &&
                 toupper(input) != 'A'
-    );
-
-    // make move
-    int i = p->get_position().row;
-    int j = p->get_position().col;
-    switch (input)  {
-        case 'W': i-=1; break;
-        case 'D': j-=1; break;
-        case 'S': i+=1; break;
-        case 'A': j+=1; break;
-    }
-
-    Position tp = {i,j};
-    
-    // get and set board
-    Board* tb = this->getBoard();
-    tb->MovePlayer(p,tp,enemylist);
-    this->setBoard(tb);
+    );   
 }
 
 /**
@@ -390,9 +410,10 @@ int Game::numberOfEnemies(){
 
 
     do {
-        std::cout<< "Number of Enemies (2 <= x <= 10):" << std::endl;
+        std::cout<< "Number of Enemies (Between 2 and 10):" << std::endl;
         std::cin >> num_input;
 
+        // input validation
         for (long unsigned int i = 0; i < num_input.length(); i++){
             if (!isdigit(num_input[i])) { is_num = false; }
             else {
@@ -425,8 +446,24 @@ Board* Game::getBoard(){
     return this->board_;
 }
 
-void Game::setBoard(Board* b){
-    this->board_ = b;
+/**
+ * @brief sets board after move
+ * 
+ * @param p 
+ * @param pos 
+ * @param enemylist 
+ */
+void Game::setBoard(Player *p, Position pos, std::vector<Player*> enemylist){
+    this->board_->MovePlayer(p,pos,enemylist);
+}
+
+Player* Game::getPlayer(int i){
+    return this->players_[i];
+}
+
+
+void Game::addToEnemyList(Player* enemy){
+	this->players_.push_back(enemy);
 }
 
 /**
@@ -438,8 +475,12 @@ void Game::setBoard(Board* b){
 std::string Game::printMoves(Player *p){
     std::vector<Position> v = this->getBoard()->GetMoves(p);
     std::string out = "";
+    long unsigned int x = 4 - v.size();
     for (long unsigned int i = 0; i < v.size(); i++){
         out += "\n" + p->ToRelativePosition(v[i]);
+    }
+    for(long unsigned int y = 0; y<x; y++){
+        out += "\n";
     }
 
     return out;

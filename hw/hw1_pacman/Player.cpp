@@ -22,7 +22,7 @@
  * @param is_human -- player status; true if human, false if computer
  */
 Player::Player(const std::string name, const bool is_human){
- 
+    
     if (is_human){
         this->name_ = name;
         Position p = {0,0};
@@ -103,7 +103,7 @@ std::string Player::ToRelativePosition(Position other){
  * @return std::string -- a string reprensentation of player's name and points
  */
 std::string Player::Stringify(){
-    return ("Name: " + this->get_name() + "\t\tPoints: " + std::to_string(this->get_points())); 
+    return ("Name: " + this->get_name() + "\nPoints: " + std::to_string(this->get_points()) + "\tLives: " + std::to_string(this->getLives())); 
 }
 
 /**

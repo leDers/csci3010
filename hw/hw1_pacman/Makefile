@@ -9,12 +9,9 @@ CXX = g++
 CXXFLAGS = -std=c++2a -Wall
 OBJECTS = Player.o Game.o
 
-.PHONY: Player.o Game.o test run_game
+.PHONY: Player.o Game.o test main
 
-all: Player.o Game.o test run_game
-
-clean: 
-	Player.o Game.o test run_game
+all: Player.o Game.o test main
 
 Player.o: Player.cpp
 	$(CXX) $(CXXFLAGS) -c $^ -o $@
@@ -25,8 +22,11 @@ Game.o: Game.cpp
 test: $(OBJECTS) test.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
 
-run_game: $(OBJECTS) run_game.cpp
+main: $(OBJECTS) main.cpp
 	$(CXX) $(CXXFLAGS) $^ -o $@
+
+clean: 
+	rm Player.o Game.o test main
 
 # NOTE: See how the old way (below) lack dependencies 
 # Player.o:
@@ -38,5 +38,5 @@ run_game: $(OBJECTS) run_game.cpp
 # test: Player.o Game.o test.cpp
 # 	$(CXX) $(CXXFLAGS) test.cpp Player.o Game.o -o test
 
-# run_game: Player.o Game.o run_game.cpp
-# 	$(CXX) $(CXXFLAGS) run_game.cpp Player.o Game.o -o run_game
+# main: Player.o Game.o main.cpp
+# 	$(CXX) $(CXXFLAGS) main.cpp Player.o Game.o -o main

@@ -24,14 +24,14 @@
 Player::Player(const std::string name, const bool is_human){
     
     if (is_human){
-        this->name_ = name;
         Position p = {0,0};
         this->pos_ = p;
     }else{
         Position e = { (rand()%8)+1, (rand()%8)+1 };
         this->pos_ = e;
     }
-
+    
+    this->name_ = name;
     this->is_human_ = is_human;
     this->points_ = 0;
     this->has_Treasure_ = false;
@@ -103,7 +103,12 @@ std::string Player::ToRelativePosition(Position other){
  * @return std::string -- a string reprensentation of player's name and points
  */
 std::string Player::Stringify(){
-    return ("Name: " + this->get_name() + "\nPoints: " + std::to_string(this->get_points()) + "\tLives: " + std::to_string(this->getLives())); 
+    return ("Name: " + this->get_name() 
+          + "\tTotal Moves: " +std::to_string(this->getMoves())
+          + "\nPoints: " + std::to_string(this->get_points()) 
+          + "\tLives: " + std::to_string(this->getLives())
+          
+    ); 
 }
 
 /**

@@ -26,7 +26,7 @@ std::string SquareTypeStringify(SquareType sq){
         case SquareType::Dots: return "\U0001F7E1"; break;            // yellow circle
         case SquareType::Pacman: return "\U0001F604"; break;          // smiley face 
         case SquareType::Treasure: return "\U0001F344"; break;        // mushroom
-        case SquareType::Enemies: return "\U0001F47B"; break;         // ghost
+        case SquareType::Enemies: return "\U0001F47E"; break;         // alien
         case SquareType::Empty: return "\U000026AA"; break;             // white circle small
         case SquareType::PowerfulPacman: return "\U0001F608"; break;  // steamy nose face 
         case SquareType::Trap: return "\U0001F525"; break;            // fire
@@ -132,7 +132,7 @@ std::vector<Position> Board::GetMoves(Player *p){
     // up
     Position z = {i-1, j};
     x = get_square_value(z);
-    if ((x == SquareType::Dots)  || 
+    if ((x == SquareType::Dots)  || (x == SquareType::Enemies) ||
         (x == SquareType::Empty) ||
         (x == SquareType::Treasure) ) {
             out.push_back(z);
@@ -141,7 +141,7 @@ std::vector<Position> Board::GetMoves(Player *p){
     // right
     z = {i, j+1};
     x = get_square_value(z);
-    if ((x == SquareType::Dots)  || 
+    if ((x == SquareType::Dots)  || (x == SquareType::Enemies) ||
         (x == SquareType::Empty) ||
         (x == SquareType::Treasure) ) {
             out.push_back(z);
@@ -150,7 +150,7 @@ std::vector<Position> Board::GetMoves(Player *p){
     // down
     z = {i+1, j};
     x = get_square_value(z);
-    if ((x == SquareType::Dots)  || 
+    if ((x == SquareType::Dots)  || (x == SquareType::Enemies) ||
         (x == SquareType::Empty) ||
         (x == SquareType::Treasure) ) {
             out.push_back(z);
@@ -159,7 +159,7 @@ std::vector<Position> Board::GetMoves(Player *p){
     // left
     z = {i, j-1};
     x = get_square_value(z);
-    if ((x == SquareType::Dots)  || 
+    if ((x == SquareType::Dots)  || (x == SquareType::Enemies) ||
         (x == SquareType::Empty) ||
         (x == SquareType::Treasure) ) {
             out.push_back(z);
@@ -188,6 +188,7 @@ bool Board::MovePlayer(Player *p, Position pos, std::vector<Player*> enemylist){
         }
     }
 
+    // wall
     if(this->get_square_value(pos) == SquareType::Wall){
         p->incrementMoves();
         return false;
@@ -197,6 +198,8 @@ bool Board::MovePlayer(Player *p, Position pos, std::vector<Player*> enemylist){
     if (this->get_square_value(pos) == SquareType::Enemies){    // check for enemy
        if (p->hasTreasure()) {          // if player has trasure and enmy @ pos, enemy dies
             enemylist[nearby_enemy_index]->setIsDead(true);     // kill enemy
+            // Player* p = new Player("", false);                  // respawn enemy extra credit
+            // enemylist.push_back(p);    
             p->setHasTreasure();                                // lose treasure
        }
        else{
@@ -242,10 +245,28 @@ bool Board::MovePlayer(Player *p, Position pos, std::vector<Player*> enemylist){
  * @return false -- if move was failure
  */
 bool Board::MoveEnemy(Player *p, Position pos){
-    
-    this->SetSquareValue(p->get_position(), SquareType::Empty); // set players current spot to empty
-    p->SetPosition(pos);
-    this->SetSquareValue(pos, SquareType::Enemies);
+
+    // check next spot
+    if(this->get_square_value(pos) == SquareType::Wall){
+        return false;
+    }
+
+    if ( this->get_square_value(p->get_position()) == SquareType::Pacman){
+        this->SetSquareValue(p->get_position(), SquareType::Pacman); // ghost poops dots
+        p->SetPosition(pos);
+        return true; 
+    }
+
+    if ( this->get_square_value(p->get_position()) == SquareType::PowerfulPacman){
+        this->SetSquareValue(p->get_position(), SquareType::PowerfulPacman); // ghost poops dots
+        p->SetPosition(pos); 
+        return true;
+    }
+
+    // leaving
+    this->SetSquareValue(p->get_position(), SquareType::Empty); // ghost poops dots
+    p->SetPosition(pos);                                       //set position fo ghost
+    this->SetSquareValue(pos, SquareType::Enemies);            // change image to ghost
 
     return true;
 
@@ -272,19 +293,15 @@ Game::Game(){
  * @param enemylist -- list of enemy players
  * @param enemies   -- number of enemies 
  */
-void Game::NewGame(Player *human,std::vector<Player*> enemylist, const int enemies){
+void Game::NewGame(Player *human,std::vector<Player*> &enemylist, const int enemies){
     
     this->players_.push_back(human);    // add human to g->players_
     
-    Player* p = NULL;
     for (int i = 0; i<enemies; i ++){   // add enemies to g->players_
         const std::string name = "enemy_"+std::to_string(i);
-        std::cout << name << std::endl;
-        p = new Player(name, false);                  // init enemys
-    
-        std::cout << p->Stringify() << std::endl;   // delete
-        
-        this->board_->SetSquareValue( (p->get_position()), SquareType::Enemies);    // set board value to enemy
+        Player* p = new Player(name, false);                  // init enemys
+        enemylist.push_back(p);    
+        this->board_->SetSquareValue( (enemylist[i]->get_position()), SquareType::Enemies);    // set board value to enemy
     }
 
    
@@ -296,9 +313,17 @@ void Game::NewGame(Player *human,std::vector<Player*> enemylist, const int enemi
  * @param p -- pointer to human player
  * @param enemylist -- vector list of enemy players
  */
-void Game::TakeTurn(Player *p,std::vector<Player*> enemylist){
+void Game::TakeTurn(Player *p, std::vector<Player*> &enemylist){
     //TODO:
     // ask for moves
+    
+    if (p->hasTreasure()){
+        this->getBoard()->SetSquareValue(p->get_position(), SquareType::PowerfulPacman);
+    }
+    else {
+        this->getBoard()->SetSquareValue(p->get_position(), SquareType::Pacman);
+    }
+
     char input = ' ';
     int i = p->get_position().row;
     int j = p->get_position().col;
@@ -331,7 +356,8 @@ void Game::TakeTurn(Player *p,std::vector<Player*> enemylist){
             }
 
             tp = {i,j};
-            this->setBoard(p,tp,enemylist);
+            // this->setBoard(p,tp, enemylist);
+            this->getBoard()->MovePlayer(p, tp, enemylist);
         }
         else{
             std::cout << "Select a valid move" << std::endl;
@@ -340,7 +366,7 @@ void Game::TakeTurn(Player *p,std::vector<Player*> enemylist){
                 toupper(input) != 'D' &&
                 toupper(input) != 'S' &&
                 toupper(input) != 'A'
-    );   
+    );
 }
 
 /**
@@ -348,7 +374,32 @@ void Game::TakeTurn(Player *p,std::vector<Player*> enemylist){
  * 
  * @param p  -- pointer to enemy player
  */
-void Game::TakeTurnEnemy(Player *p){
+void Game::TakeTurnEnemy(Player *p, std::vector<Player*> &enemylist){
+    srand(time(0));
+    int r = rand()%4;
+
+    int i = p->get_position().row;
+    int j = p->get_position().col;
+    Position tp = {i,j};
+
+    if (r == 0) {
+        i =i -1;
+        if (i<0){i=0;}
+    }
+    if (r == 1) {
+        j =j +1;
+        if (j>9){j=9;}
+    }
+    if (r == 2) {
+        i =i +1;
+        if (i>9){i=9;}
+    }
+    if (r == 3) {
+        j =j -1;
+        if (j<0){j=0;}
+    }
+    tp = {i,j};
+    this->getBoard()->MoveEnemy(p,tp);
 
 }
 
@@ -438,7 +489,8 @@ int Game::numberOfEnemies(){
 }
 
 /**
- * @brief 
+ * @brief this function returns the 
+ *        pointer board object from this->board_
  * 
  * @return Board* 
  */
@@ -449,22 +501,52 @@ Board* Game::getBoard(){
 /**
  * @brief sets board after move
  * 
- * @param p 
- * @param pos 
- * @param enemylist 
+ * @param p -- pointer to player object
+ * @param pos  -- position on board to set
+ * @param enemylist -- enemylist
  */
-void Game::setBoard(Player *p, Position pos, std::vector<Player*> enemylist){
-    this->board_->MovePlayer(p,pos,enemylist);
+void Game::setBoard(Player *p, Position pos, std::vector<Player*> &enemylist){
+    if (p->is_human()) {this->board_->MovePlayer(p,pos,enemylist); }
+    else { this->board_->MoveEnemy(p,pos); }
 }
 
+/**
+ * @brief this function returns a 
+ *        player object from teh players_ vector
+ * 
+ * @param i -- the index of player to recover from
+ *             players_[i]
+ * @return Player* 
+ */
 Player* Game::getPlayer(int i){
     return this->players_[i];
 }
 
-
+/**
+ * @brief addds an enemy to the enemylist
+ * 
+ * @param enemy -- enemy to be added
+ */
 void Game::addToEnemyList(Player* enemy){
 	this->players_.push_back(enemy);
 }
+
+/**
+ * @brief -- this function checks the position of player to 
+ *           realtion to enemies to see if a ghost was killed
+ * 
+ * @param p -- a pointer to the human player
+ * @param el -- the list of enemies
+ */
+void Game::checkKill(Player* p, std::vector<Player*> el){
+    for (long unsigned int i=0; i < el.size(); i++){
+        if (p->get_position() == el[i]->get_position()){
+            this->getBoard()->SetSquareValue(p->get_position(), SquareType::Pacman);     
+        }
+    }
+    
+}
+
 
 /**
  * @brief this function helps print out all the players possible moves
@@ -484,4 +566,25 @@ std::string Game::printMoves(Player *p){
     }
 
     return out;
+}
+
+/**
+ * @brief this helper will coun the remaing pellets on the board
+ * 
+ */
+int Game::checkPellets(){
+    int pelletCount = 0;
+    Position t;
+
+    // iterate all positions
+    for (int x=0; x<10; x++){
+        for (int y=0; y<10; y++){
+            t = {x,y};
+            if (this->getBoard()->get_square_value(t) == SquareType::Dots){ 
+                pelletCount +=1;
+            }
+        }
+    }
+
+    return pelletCount;
 }

@@ -1,3 +1,14 @@
+/**
+ * @file Player.h
+ * @author Leif Anders
+ * @brief header file for player class
+ * @version 0.1
+ * @date 2023-02-14
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
+
 #ifndef _PLAYER_H_
 #define _PLAYER_H_
 

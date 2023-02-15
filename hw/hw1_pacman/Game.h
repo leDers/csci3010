@@ -1,3 +1,13 @@
+/**
+ * @file Game.h
+ * @author Leif Anders
+ * @brief header file for game
+ * @version 0.1
+ * @date 2023-02-14
+ * 
+ * @copyright Copyright (c) 2023
+ * 
+ */
 #ifndef _GAME_H_
 #define _GAME_H_
 
@@ -84,13 +94,13 @@ public:
 
 	// initialize a new game, given one human player and
 	// a number of enemies to generate
-	void NewGame(Player *human,std::vector<Player*> enemylist, const int enemies);
+	void NewGame(Player *human,std::vector<Player*> &enemylist, const int enemies);
 
 	// have the given Player take their turn
-	void TakeTurn(Player *p,std::vector<Player*> enemylist);
+	void TakeTurn(Player *p, std::vector<Player*> &enemylist);
 
 	//have the enemy take turn
-	void TakeTurnEnemy(Player *p);
+	void TakeTurnEnemy(Player *p, std::vector<Player*> &enemylist);
 
 	bool IsGameOver(Player *p);
 
@@ -108,10 +118,13 @@ public:
 	int numberOfEnemies();
 
 	Board* getBoard();
-	void setBoard(Player *p, Position pos, std::vector<Player*> enemylist);
+	void setBoard(Player *p, Position pos, std::vector<Player*> &enemylist);
 
 	Player* getPlayer(int i);
 	void addToEnemyList(Player* enemy);
+
+	void checkKill(Player* p, std::vector<Player*> el);
+	int checkPellets();
 	
 
 	std::string printMoves(Player *printMoves);

@@ -39,7 +39,7 @@ TEST_CASE ("Player"){
 // SquareType  --- --- --- --- --- --- --- ---
 
 TEST_CASE ("Square Type Tests"){
-    
+    // testing squaretype stringify
     int num_of_sqType = 9;
     std::cout << "Emoji Test:\n";
     for (int i = 0; i < num_of_sqType; i++ ){
@@ -51,6 +51,7 @@ TEST_CASE ("Square Type Tests"){
 // Board --- --- --- --- --- --- --- ---
 
 TEST_CASE ("Board Tests"){
+    // testing constructors
     Board b = Board();
     Player *p = new Player("Leif", true);
     std::vector<Player*> e;
@@ -59,6 +60,7 @@ TEST_CASE ("Board Tests"){
         std::cout << "Print Board Test:\n" << b << std::endl;
     }
 
+    // testing getMoves() and relativePosition()
     SECTION("test moves"){
         std::vector<Position> v = b.GetMoves(p);
 
@@ -68,6 +70,7 @@ TEST_CASE ("Board Tests"){
         } std::cout << "\n";
     }
 
+    // testing MovePlayer()
     SECTION("Test Moving"){
         Position p1 = {0,1};
         Position p2 = {1,1};

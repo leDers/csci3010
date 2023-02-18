@@ -5,13 +5,13 @@ CXXGDB = -ggdb
 
 .PHONY: main test
 
-all: main test
-
-clean:
-	rm main test
+all: main test 
 
 main:
-	$(CXX) $(CXXFLAGS) pe3_references.cpp -o main 
+	$(CXX) $(CXXFLAGS) main.cpp -o main 
 
 test:
 	$(CXX) $(CXXFLAGS) test.cpp -o test 
+
+clean:
+	rm main test

@@ -16,6 +16,8 @@
 // Once the enemy is destroyed by the player, spawn a new enemy at a random
 // location on the board.
 
+// # To Run Game
+// # make && ./main
 
 
 #include "Player.h"

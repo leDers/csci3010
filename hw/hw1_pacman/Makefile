@@ -5,6 +5,9 @@
 # To Run Unit Tests:
 # make && ./test
 
+# To Run Game
+# make && ./main
+
 CXX = g++
 CXXFLAGS = -std=c++2a -Wall
 OBJECTS = Player.o Game.o

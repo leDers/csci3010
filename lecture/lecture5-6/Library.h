@@ -9,8 +9,7 @@ struct Book {
     return ( (b1.title == b2.title) && (b2.author == b2.author));
   }
 
-  friend std::ostream& operator<<(std::ostream& os, const Book& b)
-  {
+  friend std::ostream& operator<<(std::ostream& os, const Book& b){
     os << b.title << " by " << b.author << std::endl;
     return os;
   }

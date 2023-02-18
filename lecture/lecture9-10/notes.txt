@@ -1,0 +1,24 @@
+Inheritance:
+    - descendant inherits from ancestor
+    - single level
+    - multi level
+    - multiple inheritace
+
+Polymorhpism:
+    - Overloading - 
+    - Overloading - 
+
+class Parent{
+    private:
+        // restricts access of attributes to class methods 
+        std::string eye_color_;
+    public:
+        //
+        std::string getEyeColor() const {return eye_color_;} 
+    protected:
+        //
+}
+
+Class Child: public Parent{
+    
+}

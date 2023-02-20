@@ -3,15 +3,12 @@ CXXFLAGS	= -std=c++17 -Wall
 CXXTESTFLAGS = --coverage
 CXXGDB = -ggdb 
 
-.PHONY: main test
+.PHONY: main 
 
-all: test main
+all: main  
 
 main:
 	$(CXX) $(CXXFLAGS) main.cpp -o main 
 
-test:
-	$(CXX) $(CXXFLAGS) test.cpp -o test 
-
 clean:
-	rm main test
+	rm main 

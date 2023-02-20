@@ -26,7 +26,7 @@ T AddtoValues2(T v, U u){
     return v;
 }
 
- struct myStruct{
+struct myStruct{
     int a_ = 0;
     friend std::ostream& operator<<(std::ostream& os, const myStruct& m){
         os << m.a_;

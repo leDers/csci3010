@@ -15,49 +15,40 @@
 #include <iostream>
 #include <vector>
 
-template <class T, class V> 
+template <typename T> 
 class Compare {
     private:
-        V val_;
+        std::vector<T> val_;
 
     public:
-        Compare(V value) {this->val_ = value;}
+        Compare(std::vector<T> value) {this->val_ = value;}
 
         //returns all matches that are less than val
-        std::vector<T> getLessThan(T val); 
+        std::vector<T> getLessThan(T val){
+            std::vector<T> o;
+            for (unsigned long int i=0; i<this->val_.size(); i++){
+                if ( this->val_[i] < val ) { o.push_back(this->val_[i]); }
+            }
+            return o;
+        }
 
         //returns all matches that are greater than val
-        std::vector<T> getGreaterThan(T val); 
+        std::vector<T> getGreaterThan(T val){
+            std::vector<T> o;
+            for (unsigned long int i=0; i<this->val_.size(); i++){
+                if ( this->val_[i] > val ) { o.push_back(this->val_[i]); }
+            }
+            return o;
+        }
 
         //if there are exact matches, then it returns the number of matches
-        int matches(T val); 
+        int matches(T val){
+            int c = 0;
+            for (unsigned long int i=0; i<this->val_.size(); i++){
+                if ( this->val_[i] == val ) { c++; }
+            }
+            return c;
+        }
 };
-
-template <class T, class V> 
-std::vector<T> Compare<T,V>::getLessThan(T val){
-    std::vector<T> o;
-    for (unsigned long int i=0; i<this->val_.size(); i++){
-        if ( this->val_[i] < val ) { o.push_back(this->val_[i]); }
-    }
-    return o;
-}
-
-template <class T, class V> 
-std::vector<T> Compare<T,V>::getGreaterThan(T val){
-    std::vector<T> o;
-    for (unsigned long int i=0; i<this->val_.size(); i++){
-        if ( this->val_[i] > val ) { o.push_back(this->val_[i]); }
-    }
-    return o;
-}
-
-template <class T, class V> 
-int Compare<T,V>::matches(T val){
-    int c = 0;
-    for (unsigned long int i=0; i<this->val_.size(); i++){
-        if ( this->val_[i] == val ) { c++; }
-    }
-    return c;
-}
 
 #endif // _COMPARE_H_

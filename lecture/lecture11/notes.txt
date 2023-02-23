@@ -1,0 +1,10 @@
+Design Patterns:
+    - Creational
+        - Singleton: restricts a class to a single instance
+            - 
+        - Factory
+        - Prototype
+    - Structural
+        - Flyweight
+    - Behavioral
+        - Iterator

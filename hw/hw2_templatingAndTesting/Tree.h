@@ -71,10 +71,27 @@ class Tree{
                 if (key < leaf->data_){
                     return search(key, leaf->left_);
                 }
-                else { return seach(key, leaf->right_); }
+                else { return search(key, leaf->right_); }
             }
             else { return NULL; }
         }
+
+        T successor(Node<T>* leaf){
+            leaf = leaf->right_;
+            while(leaf->left_ != NULL){
+                leaf = leaf->left_;
+            }
+            return leaf->data_;
+        }
+
+        T predecessor(Node<T>* leaf){
+            leaf = leaf->left_;
+            while(leaf->right_ != NULL){
+                leaf = leaf->right_;
+            }
+            return leaf->data_;
+        }
+
 
         Node<T>* deleteElement(T key, Node<T>* leaf){
             // empty tree check
@@ -82,10 +99,13 @@ class Tree{
 
             // find target 
             if (key < leaf->data_) {leaf->left_ = deleteElement(key, leaf->left_); }
-            else if (key > leaf->data_) { leaf->right = deleteElement(key, leaf->right_); }
+            else if (key > leaf->data_) { leaf->right_ = deleteElement(key, leaf->right_); }
             
             // if the node has one or less children
             else{
+
+                if ((leaf->left_ == NULL) && (leaf->right_ == NULL)) { leaf = NULL; }
+
                 if (leaf->left_ == NULL) {
                     Node<T>* temp = leaf->right_;
                     free(leaf);

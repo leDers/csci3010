@@ -20,7 +20,7 @@ public:
 
 	// Delete the methods we don't want
 	Earth(Earth const&) = delete; // copy constructor // Earth e; Earth e2(e)
-	void operator=(Earth const&) = delete; // assignment operator //Earth e; Earth e2 = e;
+	void operator=(Earth const&) = delete; // assignment operator //Earth e; Earth e2 = e; // need to have it this way for singleton
 
  private:
  	Earth();  // private constructor

@@ -14,7 +14,7 @@
 
 #include "Linear.h"
 #include "Tree.h"
-// #include "HashMap.h"
+#include "HashMap.h"
 
 int main(){
 
@@ -42,10 +42,25 @@ int main(){
     T.insertElement('p');
     T.insertElement('q');
     T.insertElement('h');
+    T.deleteElement('a');
 
     std::cout << "After Init: " << T << std::endl;
 
     // hashmap --- --- --- --- --- --
+    std::cout << "\n-------- HASH --------" << std::endl;
+    std::vector<double> dbl_vect = {1.1, 2.2, 3.3, 4.4, 5.5};
+    int dbl_size = 6;
+    HashMap<double> dbl_hash(dbl_vect, dbl_size);
+
+    dbl_hash.insertElement(6.6);    
+
+    std::cout << dbl_hash << std::endl;
+
+    std::cout << dbl_hash.search(3.3) << std::endl;
+    
+    dbl_hash.deleteElement(3.3);
+    std::cout << dbl_hash << std::endl;
+
 
     return 0;
 }

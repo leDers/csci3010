@@ -44,6 +44,8 @@ class Linear {
             }
         }
 
+        int getSizeOfList() {return this->list_.size(); }
+
         friend std::ostream& operator<<(std::ostream&os, const Linear<T> &l){
             for (unsigned long int i=0; i<l.list_.size(); i++){
                 os << l.list_.at(i) << " ";

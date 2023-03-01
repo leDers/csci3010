@@ -1,9 +1,11 @@
 Design Patterns:
-    - Creational
+    - Creational: focuses on how and how many objects are to be made
         - Singleton: restricts a class to a single instance
             - 
         - Factory
+            -
         - Prototype
+            - blueprint/ iterative step towards final product
     - Structural
         - Flyweight
     - Behavioral

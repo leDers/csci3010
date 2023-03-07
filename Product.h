@@ -15,26 +15,44 @@
 #include <iostream>
 
 class Product {
+    public:
+    
+    private:
 
 };
 
 class Technology: public Product{
+    public:
+    
+    private:
 
 };
 
 class Automotive: public Product{
+    public:
+    
+    private:
 
 };
 
 class Furniture : public Product{
+    public:
+    
+    private:
 
 };
 
 class Recreation: public Product{
+    public:
+    
+    private:
 
 };
 
 class Health: public Product{
+    public:
+    
+    private:
 
 };
 

@@ -15,6 +15,7 @@
 #include "Linear.h"
 #include "Tree.h"
 #include "HashMap.h"
+#include "myClass.h"
 
 int main(){
 
@@ -49,8 +50,13 @@ int main(){
     // hashmap --- --- --- --- --- --
     std::cout << "\n-------- HASH --------" << std::endl;
     std::vector<double> dbl_vect = {1.1, 2.2, 3.3, 4.4, 5.5};
-    int dbl_size = 6;
+    int dbl_size = 5;
     HashMap<double> dbl_hash(dbl_vect, dbl_size);
+
+    // std::cout << "hash of 0.0: " <<dbl_hash.hashKey(0.0) << std::endl;
+    // std::cout << "hash of 0.1: " <<dbl_hash.hashKey(0.1) << std::endl;
+    // std::cout << "hash of 1.0: " <<dbl_hash.hashKey(1.0) << std::endl;
+
 
     dbl_hash.insertElement(6.6);    
 
@@ -60,6 +66,16 @@ int main(){
     
     dbl_hash.deleteElement(3.3);
     std::cout << dbl_hash << std::endl;
+
+    // 
+
+    std::vector<myClass> myClass_vec = {myClass(0), myClass(1), myClass(2), myClass(3)};
+    int myClass_size = 5;
+    HashMap<myClass> myClass_hash(myClass_vec, myClass_size);
+
+    std::cout << "hash of 0: " <<myClass_hash.hashKey(myClass(0)) << std::endl;
+    std::cout << "hash of 1: " <<myClass_hash.hashKey(myClass(1)) << std::endl;
+    std::cout << "hash of 7: " <<myClass_hash.hashKey(myClass(7)) << std::endl;
 
 
     return 0;

@@ -3,9 +3,12 @@ CXXFLAGS	= -std=c++2a -Wall
 CXXTESTFLAGS = --coverage
 CXXGDB = -ggdb 
 
-.PHONY: main test
+.PHONY: main test read
 
-all: main test
+all: main test read
+
+read:
+	$(CXX) $(CXXFLAGS) read.cpp -o read 
 
 test:
 	$(CXX) $(CXXFLAGS) test.cpp -o test 
@@ -14,4 +17,4 @@ main:
 	$(CXX) $(CXXFLAGS) main.cpp -o main 
 
 clean:
-	rm main test
+	rm main test read

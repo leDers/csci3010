@@ -16,7 +16,7 @@ class myClass{
         int x_ = 0;
 
     public:
-
+        myClass() {this->x_ = 0;}
         myClass(int x) {this->x_ = x;}
 
         friend std::ostream& operator<<(std::ostream& os, const myClass& m){

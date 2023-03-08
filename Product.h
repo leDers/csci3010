@@ -65,7 +65,14 @@ class Health: public Product{
 enum class ProductCategory {Technology, Automotive, Furniture, Recreation, Health};
 
 Product* ProductFactory(ProductCategory pc){
-    // switch(pc){}
+    switch(pc){
+        case ProductCategory::Technology: return new Technology();
+        case ProductCategory::Automotive: return new Automotive();
+        case ProductCategory::Furniture: return new Furniture();
+        case ProductCategory::Recreation: return new Recreation();
+        case ProductCategory::Health: return new Health();
+        default: return new Product();
+    }
 }
     
 

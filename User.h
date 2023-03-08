@@ -16,8 +16,10 @@
 
 class User{
     public:
-    
+
     private:
+    unsigned long UUID_;
+    unsigned long
 
 };
 

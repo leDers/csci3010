@@ -9,17 +9,49 @@
  * 
  */
 
-#ifdef _USER_H_
-#define _USER_H_
+#ifndef USER_H_
+#define USER_H_
 
+
+#include <string>
+#include <vector>
 #include <iostream>
+
+struct message{
+  std::string body;
+  unsigned long senderUUID;
+  unsigned long recipientUUID;
+};
+
+
 
 class User{
     public:
+      User(const std::string &name,
+       const std::string &phone_number, const std::string &address,
+       const std::vector<message> &messages);
+      User(unsigned long uuid, unsigned long account_balance,
+           const std::string &name, const std::string &phone_number,
+           const std::string &address, const std::vector<message> &messages);
+      unsigned long GetAccountBalance() const;
+      void SetAccountBalance(unsigned long account_balance);
+      const std::string &GetName() const;
+      void SetName(const std::string &name);
+      const std::string &GetPhoneNumber() const;
+      void SetPhoneNumber(const std::string &phone_number);
+      const std::string &GetAddress() const;
+      void SetAddress(const std::string &address);
+      const std::vector<message> &GetMessages() const;
+      void SetMessages(const std::vector<message> &messages);
+      void SendNewMessage(const User &to, const std::string body);
 
     private:
     unsigned long UUID_;
-    unsigned long
+    unsigned long accountBalance_;
+    std::string name_;
+    std::string phoneNumber_;
+    std::string address_;
+    std::vector<message> messages_;
 
 };
 

@@ -1,0 +1,5 @@
+UniqueID,Name,PhoneNumber,Address,AccountBalance,MessageHistoryLen,MessageHistory,SaleListLen,SalesList,BidListLen,BidList,BuyerSeller
+NULL,Leif Anders,000 000 0000,123 East Place,"1,000.00",3,"Hi, Hello, Good Bye",0,NULL,1,NULL,0
+NULL,Andrew Scott,111 111 1111,456 West Circle,"1,000.00",3,"Hi, Hello, Bad Bye",0,NULL,1,NULL,0
+NULL,Matt Mayer,222 222 2222,789 South Lane,"1,000.00",2,"Hi, Selling",1,NULL,0,NULL,1
+NULL,Ferrin Von-Reich,333 333 3333,000 North Street,"1,000.00",1,Hi,1,NULL,0,NULL,1

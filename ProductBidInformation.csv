@@ -1,0 +1,3 @@
+ListingID,ProductName,BasePrice,Quality,Category,ListOfBids,AciveForBidding,Seller,NumberOfBids
+NULL,Item A,10.00,Old,Technology,NULL,1,Matt Mayer,0
+NULL,Item B,20.00,New,Recreation,NULL,0,Ferrin Von-Reich,0

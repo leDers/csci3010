@@ -12,3 +12,9 @@
 #include <iostream>
 
 #include "Driver.h"
+Driver::Driver() {}
+
+const std::vector<Product::Bid> &Driver::GetBidList() const { return bidList_; }
+void Driver::addBid(Product::Bid &b) {
+  this->bidList_.push_back(b);
+}

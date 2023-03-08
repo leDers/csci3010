@@ -13,6 +13,8 @@
 #include "Driver.h"
 
 int main(){
-    
+  Product::Bid bid1= {.value=100.00,.buyer=NULL,.p=NULL};
+  Driver d=Driver();
+    d.addBid(bid1);
     return 0;
 }

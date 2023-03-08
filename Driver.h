@@ -11,14 +11,20 @@
 
 #ifndef _DRIVER_H_
 #define _DRIVER_H_
+#include "User.h"
+#include "Product.h"
+
 
 #include <iostream>
+#include <map>
 
 class Driver{
     public:
-    
-    private:    
-
+      Driver();
+      const std::vector<Product::Bid> &GetBidList() const;
+      void addBid(Product::Bid &b);
+    private:
+      std::vector<Product::Bid> bidList_;
 };
 
 #endif // _DRIVER_H_

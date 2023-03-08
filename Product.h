@@ -24,8 +24,8 @@ class Product {
     public:
       struct Bid{
         double value;
-        User &buyer;
-        Product &p;
+        User *buyer;
+        Product *p;
       };
       const std::string &GetProductName() const;
       const std::vector<Product::Bid> &GetListOfBids() const;

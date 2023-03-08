@@ -13,10 +13,16 @@
 #define _PRODUCT_H_
 
 #include <iostream>
+#include "User.h"
 
 class Product {
     public:
-    
+      struct Bid{
+        double value;
+        User &buyer;
+        Product &p;
+      };
+
     private:
 
 };

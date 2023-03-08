@@ -16,17 +16,17 @@
 #include <string>
 #include <vector>
 #include <iostream>
-
-struct message{
-  std::string body;
-  unsigned long senderUUID;
-  unsigned long recipientUUID;
-};
-
+#include "Product.h"
 
 
 class User{
   public:
+    struct message{
+      std::string body;
+      User &sender;
+      User &recipient;
+    };
+
     User(const std::string &name,
       const std::string &phone_number, const std::string &address,
       const std::vector<message> &messages);
@@ -54,7 +54,7 @@ class User{
   private:
   unsigned long UUID_;
   unsigned long accountBalance_;
-  
+
   std::string name_;
   std::string phoneNumber_;
   std::string address_;
@@ -64,16 +64,36 @@ class User{
 
 class Seller: public User{
     public:
+      Seller(const std::string &name,
+             const std::string &phone_number, const std::string &address,
+             const std::vector<message> &messages)
+          : User(name, phone_number, address, messages){
+      }
+
+      void PostProduct(Product &p);
+      std::vector<Product> GetOverview() const;
+      void EditBids(Product &p);
 
     private:
-
+      std::vector<Product> saleList_;
 };
 
 class Buyer: public User{
     public:
+      Buyer(const std::string &name,
+             const std::string &phone_number, const std::string &address,
+             const std::vector<message> &messages)
+          : User(name, phone_number, address, messages){
+      }
+      int PlaceBid(Product &p);
+      std::vector<Product> GetOverview() const;
+      std::vector<Product> viewHistory() const;
 
     private:
-    
+      std::vector<Product::Bid> bidList_;
+      std::vector<Product> purchased_;
+
 };
+
 
 #endif // _USER_H_

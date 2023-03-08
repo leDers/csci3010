@@ -13,7 +13,9 @@
 #define _PRODUCT_H_
 
 #include <iostream>
+
 #include "User.h"
+class User;
 
 class Product {
     public:

@@ -22,9 +22,8 @@ void User::SetPhoneNumber(const std::string &phone_number) {
 }
 const std::string &User::GetAddress() const { return address_; }
 void User::SetAddress(const std::string &address) { address_ = address; }
-const std::vector<message> &User::GetMessages() const { return messages_; }
-void User::SetMessages(const std::vector<message> &messages) {
-  messages_ = messages;
+const std::vector<User::message> &User::GetMessages() const { return messages_; }
+void User::SetMessages(const std::vector<message> &messages) {;
 }
 
 User::User(const std::string &name,

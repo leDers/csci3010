@@ -16,8 +16,9 @@
 #include <string>
 #include <vector>
 #include <iostream>
-#include "Product.h"
 
+#include "Product.h"
+class Product;
 
 class User{
   public:

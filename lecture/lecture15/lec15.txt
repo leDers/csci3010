@@ -1,0 +1,57 @@
+CSCI 3010
+Lecture 15
+Leif Anders
+
+
+GUIs, Task 0: vocabulary
+------------------------------------
+
+This is a follow-on to what we covered at the end of lecture 17 with GUIs. Answer the following questions.
+
+        What is model/view separation in GUI programming?
+            model (domain) objects should not have direct knowledge of view (presentation) objects, at least as view objects.
+            model handles the logic (code). view presents the interface that the user interacts with
+
+        What is a component when creating GUIs?
+            components include labels, text fields, text areas, buttons, pop-up menus, etc
+            elements of information and interaction
+
+        What is a container when creating GUIs?
+            A container provides a space where a component can be located
+
+        What is a window when creating GUIs?
+            A window is a separate viewing area on a computer display screen in a system that allows multiple viewing areas as part of a graphical user interface ( GUI ).
+            application window
+
+        What components are in the GUI that you designed in your low-fidelity prototype during lecture 14? If you weren't in class, what components can you identify on an example application of your choosing?
+            labels, textfields, buttons, menus, drop down lists
+
+
+Plot Project, Task 2: Visualizing our plotting field.
+------------------------------
+
+Given a point in standard format, (x, y), what equations will you use to calculate the equivalent coordinates on our gui adjusted layout?
+
+For example, I want an equation that, given the x coordinate 20, will calculate the value (width / 2) + 20. 
+Given the y coordinate 10, the y-coordinate equation should calculate the value (height / 2) - 10. 
+This will make our point (20, 10) appear as if plotted in the standard layout.
+
+int x_adj = x + width/2        (moving origin towards positive x)
+int y_adj = y - height/2       (moving origin towards negative y)
+
+
+Task 4: Qt GUI basics -- using the framework for the given qt plotting project
+----------------------------------
+
+1) What object does our PlotWindow inherit?
+
+
+2) What objects are created in the main.cpp file? What two methods are called? What do these two methods do? Take a look at the documentation for QWidget
+Links to an external site. and QApplication.
+
+Links to an external site.
+
+3) Write down the lines of code that you would use in the PlotWindow object to access at least 3 different ui elements.
+
+
+4) What are some differences between a QGraphicsView and a QGraphicsScene? In our example, which one contains the other?

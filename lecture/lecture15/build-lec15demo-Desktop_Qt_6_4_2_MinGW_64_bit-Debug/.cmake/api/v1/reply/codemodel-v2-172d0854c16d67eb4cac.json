@@ -1,0 +1,79 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-60ec3804442346c83f02.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.16"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0
+					],
+					"name" : "lec15demo",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 0,
+					"id" : "lec15demo::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lec15demo-Debug-7cc5d6976d9e8f67bc30.json",
+					"name" : "lec15demo",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lec15demo_autogen::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lec15demo_autogen-Debug-787b906a800c5fd6e70e.json",
+					"name" : "lec15demo_autogen",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "lec15demo_autogen_timestamp_deps::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-lec15demo_autogen_timestamp_deps-Debug-880eab9ce73b099585b6.json",
+					"name" : "lec15demo_autogen_timestamp_deps",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/lande/OneDrive/Desktop/CSCI_3010/lecture/lecture15/build-lec15demo-Desktop_Qt_6_4_2_MinGW_64_bit-Debug",
+		"source" : "C:/Users/lande/OneDrive/Desktop/CSCI_3010/lecture/lecture15/lec15demo"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

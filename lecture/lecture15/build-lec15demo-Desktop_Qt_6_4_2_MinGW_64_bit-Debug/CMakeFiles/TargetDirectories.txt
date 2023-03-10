@@ -1,0 +1,9 @@
+C:/Users/lande/OneDrive/Desktop/CSCI_3010/lecture/lecture15/build-lec15demo-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/CMakeFiles/lec15demo.dir
+C:/Users/lande/OneDrive/Desktop/CSCI_3010/lecture/lecture15/build-lec15demo-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+C:/Users/lande/OneDrive/Desktop/CSCI_3010/lecture/lecture15/build-lec15demo-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/lande/OneDrive/Desktop/CSCI_3010/lecture/lecture15/build-lec15demo-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/CMakeFiles/list_install_components.dir
+C:/Users/lande/OneDrive/Desktop/CSCI_3010/lecture/lecture15/build-lec15demo-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/CMakeFiles/install.dir
+C:/Users/lande/OneDrive/Desktop/CSCI_3010/lecture/lecture15/build-lec15demo-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/CMakeFiles/install/local.dir
+C:/Users/lande/OneDrive/Desktop/CSCI_3010/lecture/lecture15/build-lec15demo-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/CMakeFiles/install/strip.dir
+C:/Users/lande/OneDrive/Desktop/CSCI_3010/lecture/lecture15/build-lec15demo-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/CMakeFiles/lec15demo_autogen_timestamp_deps.dir
+C:/Users/lande/OneDrive/Desktop/CSCI_3010/lecture/lecture15/build-lec15demo-Desktop_Qt_6_4_2_MinGW_64_bit-Debug/CMakeFiles/lec15demo_autogen.dir

@@ -97,4 +97,4 @@ class Buyer: public User{
 };
 
 
-#endif // _USER_H__
+#endif // _USER_H_

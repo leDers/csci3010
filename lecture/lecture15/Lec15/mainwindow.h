@@ -16,6 +16,11 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void on_push_add_clicked();
+
+    void on_push_add_pressed();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;

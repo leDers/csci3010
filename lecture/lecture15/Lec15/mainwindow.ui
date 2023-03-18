@@ -19,8 +19,8 @@
      <rect>
       <x>10</x>
       <y>5</y>
-      <width>631</width>
-      <height>342</height>
+      <width>151</width>
+      <height>401</height>
      </rect>
     </property>
     <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -82,37 +82,43 @@ li.checked::marker { content: &quot;\2612&quot;; }
          </item>
         </layout>
        </item>
-       <item>
-        <widget class="QGraphicsView" name="graphicsView"/>
-       </item>
       </layout>
      </item>
      <item>
-      <layout class="QHBoxLayout" name="horizontalLayout">
-       <item>
-        <widget class="QLabel" name="lab_p1xy">
-         <property name="text">
-          <string>point1 coordinate:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="lab_p2xy">
-         <property name="text">
-          <string>point2 coordinate:</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLabel" name="lab_distance">
-         <property name="text">
-          <string>distance between: </string>
-         </property>
-        </widget>
-       </item>
-      </layout>
+      <widget class="QLabel" name="lab_p1xy">
+       <property name="text">
+        <string>point1 coordinate:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lab_p2xy">
+       <property name="text">
+        <string>point2 coordinate:</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="lab_distance">
+       <property name="text">
+        <string>distance between: </string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout"/>
      </item>
     </layout>
+   </widget>
+   <widget class="QGraphicsView" name="graphicsView">
+    <property name="geometry">
+     <rect>
+      <x>175</x>
+      <y>11</y>
+      <width>601</width>
+      <height>391</height>
+     </rect>
+    </property>
    </widget>
   </widget>
   <widget class="QMenuBar" name="menubar">

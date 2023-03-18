@@ -1,0 +1,84 @@
+CSCI 3010 - Lec16
+Leif Anders
+
+Task 1: Exploring Point
+-------------------------
+
+1) What object(s) does the Point object inherit from? Can a Point object emit a signal?
+    i) public QObject, public QGraphicsItem 
+    ii) yes, see Q_OBJECT
+
+2) What are the static fields (class attributes) of the Point class? What do you think that they are for/will be for?
+    // all our Points will have a radius of 10 (they are circles)
+    static const int width_ = 20;   -- width/ diameter if point on UI
+
+3) What are the non-static fields (class attributes) of the Point class?
+    int x_;         -- x cooridnate
+    int y_;         -- y cooridnate
+    QColor color_;  -- color of point
+
+4) What are the purposes of the following methods (go read the qt documentation and the documentation on our github in the examples folder):
+
+a) boundingRect
+    defines the outer bounds of the item as a rectangle; 
+    all painting must be restricted to inside an item's bounding rect.
+    In this case, the outer bounds of the point item
+
+b) shape
+    Returns the shape of this item as a QPainterPath in local coordinates. 
+    The shape is used for many things, including collision detection, hit tests, and for the QGraphicsScene::items() functions.
+    In this case the round circle that is our point.
+
+c) paint
+    This function, which is usually called by QGraphicsView, paints the contents of an item in local coordinates.
+    In this case our points.
+
+Task 2: Make sure you have axes
+---------------------------------------------
+
+Task 3: Adding a Point to our scene (by instantiating one in your PlotWindow constructor)
+-----------------------------------------------
+
+2) What lines of code do you need to write to add a Point to your scene that appears at the origin of your graph?
+
+Task 4: Adding some Points to our scene (Add Point button)
+-----------------------------------------------
+
+Task 5: Emitting a Signal from a Point (custom everything!)
+-------------------------------------------------
+TODO: !!!
+
+1) Take a look at the Point header file. Add the following code to this file defining a custom signal and adding the mousePressEvent function.
+
+Point.h
+
+
+signals:
+    // for distance
+    void PointSelected(int x, int y);
+
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+
+Point.cpp
+
+void Point::mousePressEvent(QGraphicsSceneMouseEvent *event)
+{
+    qDebug() << "point clicked!";
+}
+
+What parameters does the PointSelected signal take? What line of code would you write to emit this signal from the mousePressEvent method in Point?
+
+ 
+
+2) Run your application. Has anything changed in terms of interaction? Why or why not?
+
+ 
+
+3) When you add a Point to your scene in your PlotWindow, connect that Point and it's PointSelected signal to a new slot in your PlotWindow class. This new slot must have the same parameters as the signal that it is receiving. Implement this slot so that it prints the x and y coordinates of the clicked point via qDebug().
+
+Hint: your new slot needs to be a custom slot, like SlotTest from the previous lecture.
+
+ 
+
+4) Will signals ever have return values? why yes/ why no?

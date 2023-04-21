@@ -1,3 +1,6 @@
 [submodule "hw/hw3_BidToBuy/CSCI3010-HW3"]
 	path = hw/hw3_BidToBuy/CSCI3010-HW3
 	url = https://github.com/mTopy/CSCI3010-HW3.git
+[submodule "hw/hw5_FinalProject/hw5_sharedRepo"]
+	path = hw/hw5_FinalProject/hw5_sharedRepo
+	url = https://github.com/leDers/hw5_sharedRepo.git

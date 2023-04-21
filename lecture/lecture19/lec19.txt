@@ -1,0 +1,50 @@
+Plot-Project, Day 5
+------------------------
+
+ploproject_day5.zip
+
+Download ploproject_day5.zip
+Task 1: Improve the UI
+--------------------------------------------------------------------------------------------------
+
+
+Do one thing to improve the UI. For instance, make it more obvious when you are in delete mode. Make it more obvious how to interact with the interface. Make the interface layout more intuitive, etc. Make it more obvious which point you have previously shift-clicked on. etc.
+
+Copy + paste the relevant code here.
+    void PlotWindow::on_deletePoints_clicked()
+{
+    delete_mode_ = !delete_mode_;
+    if(delete_mode_){
+        ui->centralWidget->setCursor(Qt::CrossCursor);
+        ui->deletePoints->setStyleSheet("color: red");
+
+    }
+    else{
+        ui->centralWidget->setCursor(Qt::ArrowCursor);
+        ui->deletePoints->setStyleSheet("color: black");
+    }
+}
+
+ 
+
+Task 2 - Working with Dialogs
+--------------------------------------------------------------------------------------------------
+
+We will work on adding some dialogs to the plot project.
+
+Here is some documentation that will help get you started: https://doc.qt.io/qt-5/qdialog.html
+
+Links to an external site.
+
+1) Add a Dialog at the start up of the application that accepts how many points to initialize on the graph. Then read values for the coordinates for the points.  Based on the given input create points on the scene. The Dialog you will create in this step will be a Modal dialog. What is the difference between a modal and a modeless dialog? 
+
+2) Add a button on the PlotWindow that loads a Modeless Dialog that contains the description for the application. You will read the description from a file and load it into the Dialog. What is the difference between show() and exec()?
+
+ 
+
+Task 3 - upload your lesson plan in this Canvas item.
+--------------------------------------------------------------------------------------------------
+
+Consider that you have to teach a peer about GUIs, event-driven programming and Qt.
+
+Design a lesson plan with a partner to do so successfully. You may upload one lesson plan per group. Make sure to include the name of your partner in the document.

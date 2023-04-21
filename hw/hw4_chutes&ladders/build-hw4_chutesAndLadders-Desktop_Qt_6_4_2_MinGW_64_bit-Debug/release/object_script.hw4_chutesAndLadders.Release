@@ -1,0 +1,11 @@
+release/chute.o
+release/main.o
+release/mainwindow.o
+release/player.o
+release/setupdialog.o
+release/tile.o
+release/moc_chute.o
+release/moc_mainwindow.o
+release/moc_player.o
+release/moc_setupdialog.o
+release/moc_tile.o

@@ -1,0 +1,11 @@
+debug/chute.o
+debug/main.o
+debug/mainwindow.o
+debug/player.o
+debug/setupdialog.o
+debug/tile.o
+debug/moc_chute.o
+debug/moc_mainwindow.o
+debug/moc_player.o
+debug/moc_setupdialog.o
+debug/moc_tile.o

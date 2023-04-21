@@ -79,5 +79,8 @@
         "xhash": "cpp",
         "coroutine": "cpp",
         "resumable": "cpp"
+    },
+    "files.watcherExclude": {
+        "**/target": true
     }
 }

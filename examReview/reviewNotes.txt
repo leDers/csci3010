@@ -1,0 +1,59 @@
+Overloading
+    Function Overloading
+    these two are indistinguishable by compiler bc it is looking for parameters to match
+    -> int  add(int, int)
+    -> void add(int, int)
+
+    -> double add(double, double)
+    -> string add(string, string)
+
+
+    Operator overloading
+    -> return_type operator<operator_sumbol>(Datatype variable, ...)
+    -> eg:
+
+    Do either or:
+    bool operator ==(const T &t_rhs); 
+        -> t1 == t1, t1.operator==(t2)
+    friend bool operator==(const T &t_lhs, const T &t_rhs); 
+        -> operator==(t1,t2)
+
+    friend std::ostream& operator<< (std::ostream &os, const T &t);
+
+    Friend keyword 
+    -> specifies special functions that have access to private members
+
+Static
+    -> shared memory across objects
+
+    static int count = 0
+    
+    class Demo{
+        public:
+            static int get_count() {a++; return count};
+        private:
+            const static int count;
+            int a = 0;
+    };
+
+    int Demo::count = 1;
+
+    static <return_type> <function_name> (<argument_list>)
+
+    int main(){
+        Demo d;
+        d.get_count();
+        Demo::get_count();  // calling static methods
+    }
+
+
+Inheritence
+    virtual -- allows you to overwite 
+
+
+Design Pattern
+    -> factory
+    -> flyweight
+    -> signleton
+
+QT
